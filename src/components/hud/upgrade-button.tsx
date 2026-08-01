@@ -2,9 +2,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Sparkle } from "lucide-react";
 
-import { CARDS } from "@/data/game";
+import { CARDS, type GameCard } from "@/data/game";
 import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
+import { glowStyle } from "@/lib/style";
 
 /** Upgrade button: summons an animated magic card that lands in the centre banner. */
 export function UpgradeButton({ onSummoned }: { onSummoned: (cardId: string) => void }) {
@@ -12,9 +13,10 @@ export function UpgradeButton({ onSummoned }: { onSummoned: (cardId: string) => 
   const { activeCardId } = useHud();
   const [summoning, setSummoning] = useState(false);
 
-  const nextCard = (() => {
+  const nextCard: GameCard = (() => {
     const index = CARDS.findIndex((c) => c.id === activeCardId);
-    return CARDS[Math.min(index + 1, CARDS.length - 1)] ?? CARDS[5];
+    const candidate = CARDS[Math.min(index + 1, CARDS.length - 1)];
+    return candidate ?? (CARDS[0] as GameCard);
   })();
 
   function summon() {
@@ -69,7 +71,7 @@ export function UpgradeButton({ onSummoned }: { onSummoned: (cardId: string) => 
               />
             ))}
             <motion.div
-              style={{ "--glow": nextCard.glow } as React.CSSProperties}
+              style={glowStyle(nextCard.glow)}
               className="hud-panel relative h-64 w-44 overflow-hidden"
               initial={{ rotateY: 180, scale: 0.3, opacity: 0, y: 120 }}
               animate={{ rotateY: 0, scale: 1, opacity: 1, y: 0 }}
