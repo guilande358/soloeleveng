@@ -5,17 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Solo Eleveng Evolution — HUD gamer design system.
+ * Dark navy base, violet/cyan neon accents, animated luminous borders.
  */
 
 @theme inline {
@@ -46,6 +37,13 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
+  --color-neon: var(--neon);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-gold: var(--neon-gold);
+  --color-neon-green: var(--neon-green);
+  --color-neon-pink: var(--neon-pink);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -59,77 +57,66 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-display: "Orbitron", "Space Grotesk", sans-serif;
+  --font-sans: "Rajdhani", "DM Sans", sans-serif;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --radius: 0.75rem;
+  --background: oklch(0.14 0.05 285);
+  --foreground: oklch(0.96 0.01 280);
+  --card: oklch(0.19 0.06 285);
+  --card-foreground: oklch(0.96 0.01 280);
+  --popover: oklch(0.18 0.06 285);
+  --popover-foreground: oklch(0.96 0.01 280);
+  --primary: oklch(0.62 0.24 300);
+  --primary-foreground: oklch(0.98 0.01 300);
+  --secondary: oklch(0.26 0.07 285);
+  --secondary-foreground: oklch(0.96 0.01 280);
+  --muted: oklch(0.24 0.05 285);
+  --muted-foreground: oklch(0.72 0.04 285);
+  --accent: oklch(0.72 0.16 210);
+  --accent-foreground: oklch(0.16 0.05 285);
+  --destructive: oklch(0.6 0.24 20);
+  --destructive-foreground: oklch(0.98 0.01 300);
+  --border: oklch(0.36 0.09 290 / 55%);
+  --input: oklch(0.3 0.07 288);
+  --ring: oklch(0.68 0.2 300);
+
+  --neon: oklch(0.68 0.26 300);
+  --neon-cyan: oklch(0.8 0.16 205);
+  --neon-gold: oklch(0.82 0.15 85);
+  --neon-green: oklch(0.78 0.2 150);
+  --neon-pink: oklch(0.72 0.24 340);
+  --surface: oklch(0.19 0.06 285);
+  --surface-2: oklch(0.23 0.07 288);
+
+  --rarity-iron: oklch(0.72 0.02 260);
+  --rarity-bronze: oklch(0.66 0.13 55);
+  --rarity-silver: oklch(0.85 0.03 230);
+  --rarity-gold: oklch(0.82 0.15 85);
+  --rarity-platinum: oklch(0.82 0.12 175);
+  --rarity-diamond: oklch(0.78 0.16 230);
+  --rarity-master: oklch(0.68 0.24 320);
+  --rarity-legendary: oklch(0.8 0.2 60);
+
+  --chart-1: oklch(0.68 0.26 300);
+  --chart-2: oklch(0.8 0.16 205);
+  --chart-3: oklch(0.82 0.15 85);
+  --chart-4: oklch(0.78 0.2 150);
+  --chart-5: oklch(0.72 0.24 340);
+  --sidebar: oklch(0.17 0.06 285);
+  --sidebar-foreground: oklch(0.96 0.01 280);
+  --sidebar-primary: oklch(0.62 0.24 300);
+  --sidebar-primary-foreground: oklch(0.98 0.01 300);
+  --sidebar-accent: oklch(0.26 0.07 285);
+  --sidebar-accent-foreground: oklch(0.96 0.01 280);
+  --sidebar-border: oklch(0.36 0.09 290 / 55%);
+  --sidebar-ring: oklch(0.68 0.2 300);
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  color-scheme: dark;
 }
 
 @layer base {
@@ -140,5 +127,96 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(
+        ellipse 80% 50% at 50% -10%,
+        color-mix(in oklab, var(--neon) 22%, transparent),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 100% 100%,
+        color-mix(in oklab, var(--neon-cyan) 12%, transparent),
+        transparent
+      );
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+  }
+}
+
+@utility hud-panel {
+  position: relative;
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklab, var(--neon) 30%, transparent);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--surface) 92%, transparent),
+      color-mix(in oklab, var(--background) 88%, transparent)
+    );
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--neon) 18%, transparent),
+    0 18px 40px -24px color-mix(in oklab, var(--neon) 60%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+@utility hud-frame {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    transparent 0deg,
+    color-mix(in oklab, var(--glow, var(--neon)) 85%, transparent) 40deg,
+    transparent 110deg,
+    transparent 250deg,
+    color-mix(in oklab, var(--glow, var(--neon)) 60%, transparent) 300deg,
+    transparent 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  padding: 1px;
+  animation: hud-spin 6s linear infinite;
+}
+
+@utility text-glow {
+  text-shadow: 0 0 18px color-mix(in oklab, var(--glow, var(--neon)) 70%, transparent);
+}
+
+@utility scroll-hidden {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes hud-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes hud-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
   }
 }
