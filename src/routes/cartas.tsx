@@ -3,8 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CardsSection } from "@/components/hud/cards-section";
 import { GameCardTile } from "@/components/hud/game-card-tile";
 import { CARDS } from "@/data/game";
+import { BanWarningDialog } from "@/components/hud/ban-warning-dialog";
 import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
+import { useState } from "react";
 
 export const Route = createFileRoute("/cartas")({
   head: () => ({
@@ -27,6 +29,15 @@ export const Route = createFileRoute("/cartas")({
 function CardsPage() {
   const { t } = useI18n();
   const { activeCardId, selectCard } = useHud();
+  const [pending, setPending] = useState<string | null>(null);
+
+  function request(id: string) {
+    if (activeCardId && activeCardId !== id) {
+      setPending(id);
+      return;
+    }
+    selectCard(id);
+  }
 
   return (
     <div className="space-y-5">
@@ -43,11 +54,22 @@ function CardsPage() {
               key={card.id}
               card={card}
               active={activeCardId === card.id}
-              onClick={() => selectCard(card.id)}
+              onClick={() => request(card.id)}
             />
           ))}
         </div>
       </section>
+
+      <BanWarningDialog
+        open={pending !== null}
+        onOpenChange={(open) => {
+          if (!open) setPending(null);
+        }}
+        onConfirm={() => {
+          if (pending) selectCard(pending);
+          setPending(null);
+        }}
+      />
     </div>
   );
 }
