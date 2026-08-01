@@ -14,6 +14,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CartasRouteImport } from './routes/cartas'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ModosRouteImport } from './routes/modos'
+import { Route as NotificacoesRouteImport } from './routes/notificacoes'
+import { Route as PerfilRouteImport } from './routes/perfil'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +42,16 @@ const ModosRoute = ModosRouteImport.update({
   path: '/modos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificacoesRoute = NotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +59,8 @@ export interface FileRoutesByFullPath {
   '/cartas': typeof CartasRoute
   '/checkout': typeof CheckoutRoute
   '/modos': typeof ModosRoute
+  '/notificacoes': typeof NotificacoesRoute
+  '/perfil': typeof PerfilRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/cartas': typeof CartasRoute
   '/checkout': typeof CheckoutRoute
   '/modos': typeof ModosRoute
+  '/notificacoes': typeof NotificacoesRoute
+  '/perfil': typeof PerfilRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +78,37 @@ export interface FileRoutesById {
   '/cartas': typeof CartasRoute
   '/checkout': typeof CheckoutRoute
   '/modos': typeof ModosRoute
+  '/notificacoes': typeof NotificacoesRoute
+  '/perfil': typeof PerfilRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/cartas' | '/checkout' | '/modos'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/cartas'
+    | '/checkout'
+    | '/modos'
+    | '/notificacoes'
+    | '/perfil'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/cartas' | '/checkout' | '/modos'
-  id: '__root__' | '/' | '/auth' | '/cartas' | '/checkout' | '/modos'
+  to:
+    | '/'
+    | '/auth'
+    | '/cartas'
+    | '/checkout'
+    | '/modos'
+    | '/notificacoes'
+    | '/perfil'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/cartas'
+    | '/checkout'
+    | '/modos'
+    | '/notificacoes'
+    | '/perfil'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +117,8 @@ export interface RootRouteChildren {
   CartasRoute: typeof CartasRoute
   CheckoutRoute: typeof CheckoutRoute
   ModosRoute: typeof ModosRoute
+  NotificacoesRoute: typeof NotificacoesRoute
+  PerfilRoute: typeof PerfilRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +158,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notificacoes': {
+      id: '/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/notificacoes'
+      preLoaderRoute: typeof NotificacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   CartasRoute: CartasRoute,
   CheckoutRoute: CheckoutRoute,
   ModosRoute: ModosRoute,
+  NotificacoesRoute: NotificacoesRoute,
+  PerfilRoute: PerfilRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
