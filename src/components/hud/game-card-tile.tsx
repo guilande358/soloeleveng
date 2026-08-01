@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 
 import type { GameCard } from "@/data/game";
 import { useI18n } from "@/lib/i18n";
+import { glowStyle } from "@/lib/style";
 import { cn } from "@/lib/utils";
 
 export function GameCardTile({
@@ -24,7 +25,7 @@ export function GameCardTile({
       whileHover={{ y: -6, scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
       transition={{ type: "spring", stiffness: 320, damping: 22 }}
-      style={{ "--glow": card.glow } as React.CSSProperties}
+      style={glowStyle(card.glow)}
       className={cn(
         "hud-panel relative block w-[9.5rem] shrink-0 overflow-hidden p-0 text-left",
         featured && "w-[11rem]",
