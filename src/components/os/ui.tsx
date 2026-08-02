@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { glowStyle } from "@/lib/style";
 import { cn } from "@/lib/utils";
 
-export function Chip({ children, glow }: { children: ReactNode; glow?: string }) {
+export function Chip({ children, glow }: { children: ReactNode; glow?: string | undefined }) {
   return (
     <span
       style={glow ? glowStyle(glow) : undefined}
@@ -14,7 +14,7 @@ export function Chip({ children, glow }: { children: ReactNode; glow?: string })
   );
 }
 
-export function Meter({ value, max, glow = "var(--neon)" }: { value: number; max: number; glow?: string }) {
+export function Meter({ value, max, glow = "var(--neon)" }: { value: number; max: number; glow?: string | undefined }) {
   return (
     <div className="h-1.5 overflow-hidden rounded-full bg-surface-2">
       <div
@@ -65,7 +65,7 @@ export function Row({
   );
 }
 
-export function StatTile({ label, value, glow = "var(--neon-cyan)" }: { label: string; value: string; glow?: string }) {
+export function StatTile({ label, value, glow = "var(--neon-cyan)" }: { label: string; value: string; glow?: string | undefined }) {
   return (
     <div className="rounded-lg border border-border/50 bg-surface-2/40 p-2 text-center">
       <p style={{ color: glow }} className="font-display text-sm">
@@ -76,7 +76,7 @@ export function StatTile({ label, value, glow = "var(--neon-cyan)" }: { label: s
   );
 }
 
-export function Sparkline({ data, glow = "var(--neon-cyan)" }: { data: number[]; glow?: string }) {
+export function Sparkline({ data, glow = "var(--neon-cyan)" }: { data: number[]; glow?: string | undefined }) {
   return (
     <div className="flex h-12 items-end gap-1">
       {data.map((v, i) => (
