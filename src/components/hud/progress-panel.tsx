@@ -7,6 +7,8 @@ export function ProgressPanel() {
   const { t } = useI18n();
   const xp = 12450;
   const xpMax = 18000;
+  const fmt = (n: number) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
 
   return (
     <HudPanel title={t("progress.title")} glow="var(--neon-gold)">
@@ -21,7 +23,7 @@ export function ProgressPanel() {
           <div className="flex items-center justify-between text-[10px] tracking-widest text-muted-foreground uppercase">
             <span>XP</span>
             <span>
-              {xp.toLocaleString()} / {xpMax.toLocaleString()}
+              {fmt(xp)} / {fmt(xpMax)}
             </span>
           </div>
           <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-surface-2">
