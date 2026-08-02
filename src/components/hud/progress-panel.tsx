@@ -7,6 +7,8 @@ export function ProgressPanel() {
   const { t } = useI18n();
   const xp = 12450;
   const xpMax = 18000;
+  const fmt = (n: number) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
 
   return (
     <HudPanel title={t("progress.title")} glow="var(--neon-gold)">
