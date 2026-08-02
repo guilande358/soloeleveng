@@ -29,7 +29,7 @@ export function Meter({ value, max, glow = "var(--neon)" }: { value: number; max
   );
 }
 
-export function Avatar({ name, glow = "var(--neon)", size = "sm" }: { name: string; glow?: string; size?: "sm" | "lg" }) {
+export function Avatar({ name, glow = "var(--neon)", size = "sm" }: { name: string; glow?: string | undefined; size?: "sm" | "lg" }) {
   return (
     <span
       style={{ boxShadow: `0 0 14px -2px ${glow}`, borderColor: glow }}
@@ -50,7 +50,7 @@ export function Row({
 }: {
   label: ReactNode;
   value: ReactNode;
-  glow?: string;
+  glow?: string | undefined;
 }) {
   return (
     <div className="flex items-center justify-between gap-2 border-b border-border/40 py-1.5 last:border-0">
