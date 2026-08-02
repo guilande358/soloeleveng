@@ -23,7 +23,7 @@ export function ProgressPanel() {
           <div className="flex items-center justify-between text-[10px] tracking-widest text-muted-foreground uppercase">
             <span>XP</span>
             <span>
-              {xp.toLocaleString()} / {xpMax.toLocaleString()}
+              {fmt(xp)} / {fmt(xpMax)}
             </span>
           </div>
           <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-surface-2">
