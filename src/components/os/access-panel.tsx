@@ -1,13 +1,15 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Copy, KeyRound, RefreshCw, ShieldOff, ShieldCheck } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { Copy, KeyRound, LogIn, RefreshCw, ShieldCheck, ShieldOff } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
-import { ActionButton, Chip, Row } from "@/components/os/ui";
+import { Chip, Row } from "@/components/os/ui";
 import { ACCESSES, ACCESS_STATE_LABEL } from "@/data/os";
+import { useHud } from "@/lib/hud-state";
 import { useI18n, type Lang } from "@/lib/i18n";
 import { createAccessLink, listAccessLinks, revokeAccessLink } from "@/lib/access.functions";
-import { useServerFn } from "@tanstack/react-start";
 
 const pick = (b: { pt: string; en: string }, lang: Lang) => (lang === "pt" ? b.pt : b.en);
 
