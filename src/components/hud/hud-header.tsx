@@ -1,7 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Bell, Globe, User } from "lucide-react";
+import { Bell, Globe, LogOut, User } from "lucide-react";
+import { toast } from "sonner";
 
-import logo from "@/assets/seev-logo.png";
+import { supabase } from "@/integrations/supabase/client";
+import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -14,13 +16,19 @@ const links = [
 
 export function HudHeader() {
   const { t, lang, setLang } = useI18n();
+  const { userId, profile } = useHud();
   const path = useRouterState({ select: (s) => s.location.pathname });
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    toast.success(t("auth.signedOut"));
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Solo Eleveng Evolution" width={40} height={40} className="h-9 w-9" />
+          <img src="/src/assets/seev-logo.png" alt="Solo Eleveng Evolution" width={40} height={40} className="h-9 w-9" />
           <span className="font-display text-[11px] leading-3 tracking-[0.18em] text-foreground">
             SOLO
             <br />
@@ -63,13 +71,39 @@ export function HudHeader() {
             <Bell className="h-4 w-4" />
             <span className="absolute top-0.5 right-0.5 h-1.5 w-1.5 rounded-full bg-neon-pink" />
           </Link>
-          <Link
-            to="/auth"
-            className="flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 font-display text-xs tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            <User className="h-3.5 w-3.5" />
-            {t("nav.auth")}
-          </Link>
+
+          {userId ? (
+            <div className="flex items-center gap-1.5">
+              <Link
+                to="/perfil"
+                className="flex items-center gap-1.5 rounded-md border border-border px-2 py-1.5 text-xs font-medium transition-colors hover:bg-surface-2"
+              >
+                <span
+                  className="grid h-6 w-6 place-items-center rounded-full font-display text-[10px] font-bold"
+                  style={{ background: profile.accent, color: "#0b1120" }}
+                >
+                  {profile.name.slice(0, 2).toUpperCase()}
+                </span>
+                <span className="hidden max-w-[6rem] truncate sm:inline">{profile.name}</span>
+              </Link>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                aria-label={t("auth.signOut")}
+                className="rounded-md border border-border p-1.5 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/auth"
+              className="flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 font-display text-xs tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              <User className="h-3.5 w-3.5" />
+              {t("nav.auth")}
+            </Link>
+          )}
         </div>
       </div>
     </header>

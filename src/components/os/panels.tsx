@@ -12,7 +12,6 @@ import {
   Play,
   Radio,
   Settings,
-  ShieldCheck,
   ShoppingBag,
   Sparkles,
   Store,
@@ -23,10 +22,9 @@ import {
   Wallet,
 } from "lucide-react";
 
+import { AccessFull, AccessWidget } from "@/components/os/access-panel";
 import { ActionButton, Avatar, Chip, Meter, Row, Sparkline, StatTile } from "@/components/os/ui";
 import {
-  ACCESSES,
-  ACCESS_STATE_LABEL,
   ACHIEVEMENTS,
   AI_INSIGHTS,
   AI_TIMELINE,
@@ -354,55 +352,6 @@ function GuildFull() {
 }
 
 /* ── 5. Acessos ───────────────────────────────────────────────────────── */
-
-function AccessWidget() {
-  const { lang } = useI18n();
-  return (
-    <div>
-      {ACCESSES.map((a) => (
-        <Row
-          key={a.id}
-          label={a.game}
-          value={pick(ACCESS_STATE_LABEL[a.state], lang)}
-          glow={a.state === "protected" ? "var(--neon-green)" : a.state === "review" ? "var(--neon-gold)" : undefined}
-        />
-      ))}
-    </div>
-  );
-}
-
-function AccessFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="space-y-3">
-      <p className="text-[11px] text-muted-foreground">
-        {lang === "pt"
-          ? "Sessões autorizadas por você, com links cifrados e revogação imediata. Use sempre de acordo com os termos de cada jogo."
-          : "Sessions you authorized, with encrypted links and instant revocation. Always use within each game's terms of service."}
-      </p>
-      <div className="grid gap-2 sm:grid-cols-2">
-        {ACCESSES.map((a) => (
-          <div key={a.id} className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-            <div className="flex items-center justify-between gap-2">
-              <p className="font-display text-[12px]">{a.game}</p>
-              <Chip glow="var(--neon-green)">{pick(ACCESS_STATE_LABEL[a.state], lang)}</Chip>
-            </div>
-            <Row label={lang === "pt" ? "Sessões" : "Sessions"} value={a.sessions} />
-            <Row label={lang === "pt" ? "Dispositivo" : "Device"} value={a.device} />
-            <Row label={lang === "pt" ? "Último login" : "Last login"} value={a.lastLogin} />
-            <div className="mt-2 flex gap-2">
-              <ActionButton variant="ghost">{lang === "pt" ? "Revogar" : "Revoke"}</ActionButton>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="flex items-center gap-1.5 text-[10px] tracking-wider text-muted-foreground uppercase">
-        <ShieldCheck className="h-3.5 w-3.5 text-neon-green" />
-        {lang === "pt" ? "Proteção de conta ativa" : "Account protection active"}
-      </p>
-    </div>
-  );
-}
 
 /* ── 6. Contratos ─────────────────────────────────────────────────────── */
 
