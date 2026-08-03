@@ -58,6 +58,7 @@ export function AccessWidget() {
 
 export function AccessFull() {
   const { lang, t } = useI18n();
+  const { userId } = useHud();
   const queryClient = useQueryClient();
   const fetchLinks = useServerFn(listAccessLinks);
   const createFn = useServerFn(createAccessLink);
