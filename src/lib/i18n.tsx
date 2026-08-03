@@ -7,8 +7,8 @@ const dict = {
   "nav.cards": { pt: "Cartas", en: "Cards" },
   "nav.modes": { pt: "Modos", en: "Modes" },
   "nav.profile": { pt: "Perfil", en: "Profile" },
-  "nav.checkout": { pt: "Checkout", en: "Checkout" },
   "nav.auth": { pt: "Entrar", en: "Sign in" },
+  "nav.checkout": { pt: "Checkout", en: "Checkout" },
 
   "hero.line1": { pt: "Evolua.", en: "Evolve." },
   "hero.line2": { pt: "Supere.", en: "Surpass." },
@@ -115,10 +115,15 @@ const dict = {
   "auth.noAccount": { pt: "Não tem uma conta?", en: "No account yet?" },
   "auth.hasAccount": { pt: "Já tem uma conta?", en: "Already have an account?" },
   "auth.terms": { pt: "Li e aceito os Termos de Uso.", en: "I read and accept the Terms of Use." },
-  "auth.demo": {
-    pt: "Interface de demonstração — autenticação real chega na próxima fase.",
-    en: "Demo interface — real authentication arrives in the next phase.",
-  },
+  "auth.google": { pt: "Entrar com Google", en: "Sign in with Google" },
+  "auth.or": { pt: "ou", en: "or" },
+  "auth.welcomeBack": { pt: "Bem-vindo de volta!", en: "Welcome back!" },
+  "auth.accountCreated": { pt: "Conta criada com sucesso!", en: "Account created successfully!" },
+  "auth.passwordMismatch": { pt: "As senhas não coincidem.", en: "Passwords do not match." },
+  "auth.acceptTerms": { pt: "Aceite os termos para continuar.", en: "Accept the terms to continue." },
+  "auth.error": { pt: "Ocorreu um erro. Tente novamente.", en: "An error occurred. Please try again." },
+  "auth.signOut": { pt: "Sair", en: "Sign out" },
+  "auth.signedOut": { pt: "Sessão terminada.", en: "Signed out." },
 
   "profile.title": { pt: "Perfil Gamer", en: "Gamer Profile" },
   "profile.bio": { pt: "Bio", en: "Bio" },
@@ -151,6 +156,7 @@ const dict = {
   "common.back": { pt: "Voltar", en: "Back" },
   "common.close": { pt: "Fechar", en: "Close" },
   "common.lang": { pt: "Idioma", en: "Language" },
+  "common.loading": { pt: "A carregar...", en: "Loading..." },
 } as const;
 
 export type TKey = keyof typeof dict;
