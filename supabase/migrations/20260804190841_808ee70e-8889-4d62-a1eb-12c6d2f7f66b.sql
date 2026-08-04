@@ -1,0 +1,2 @@
+REVOKE EXECUTE ON FUNCTION public.apply_wallet_delta(uuid, text, numeric, text, jsonb, integer, numeric) FROM anon, authenticated, public;
+GRANT EXECUTE ON FUNCTION public.apply_wallet_delta(uuid, text, numeric, text, jsonb, integer, numeric) TO service_role;
