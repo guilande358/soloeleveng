@@ -63,10 +63,16 @@ export const updateContractProgress = createServerFn({ method: "POST" })
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const patch: Record<string, unknown> = { percent: data.percent };
-    if (data.currentRank !== undefined) patch["current_rank"] = data.currentRank;
-    if (data.medals !== undefined) patch["medals"] = data.medals;
-    if (data.matches !== undefined) patch["matches"] = data.matches;
+    const patch: {
+      percent: number;
+      current_rank?: string;
+      medals?: number;
+      matches?: number;
+    } = { percent: data.percent };
+    if (data.currentRank !== undefined) patch.current_rank = data.currentRank;
+    if (data.medals !== undefined) patch.medals = data.medals;
+    if (data.matches !== undefined) patch.matches = data.matches;
+
 
     await supabaseAdmin.from("contract_progress").update(patch).eq("contract_id", contract.id);
 
