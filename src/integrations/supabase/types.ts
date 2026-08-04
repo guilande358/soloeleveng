@@ -160,6 +160,53 @@ export type Database = {
         }
         Relationships: []
       }
+      contract_progress: {
+        Row: {
+          contract_id: string
+          created_at: string
+          current_rank: string
+          id: string
+          matches: number
+          medals: number
+          note: string | null
+          percent: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          contract_id: string
+          created_at?: string
+          current_rank?: string
+          id?: string
+          matches?: number
+          medals?: number
+          note?: string | null
+          percent?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          contract_id?: string
+          created_at?: string
+          current_rank?: string
+          id?: string
+          matches?: number
+          medals?: number
+          note?: string | null
+          percent?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_progress_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contracts: {
         Row: {
           commission_rate: number
@@ -541,6 +588,105 @@ export type Database = {
           },
         ]
       }
+      payment_intents: {
+        Row: {
+          amount: number
+          card_id: string
+          commission: number
+          created_at: string
+          id: string
+          method: string
+          mode: string
+          order_id: string | null
+          reference: string
+          status: string
+          total: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          card_id: string
+          commission?: number
+          created_at?: string
+          id?: string
+          method?: string
+          mode?: string
+          order_id?: string | null
+          reference: string
+          status?: string
+          total: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          card_id?: string
+          commission?: number
+          created_at?: string
+          id?: string
+          method?: string
+          mode?: string
+          order_id?: string | null
+          reference?: string
+          status?: string
+          total?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_intents_card_id_fkey"
+            columns: ["card_id"]
+            isOneToOne: false
+            referencedRelation: "cards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_intents_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payout_requests: {
+        Row: {
+          amount: number
+          created_at: string
+          destination: string
+          id: string
+          method: string
+          note: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          destination: string
+          id?: string
+          method: string
+          note?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          destination?: string
+          id?: string
+          method?: string
+          note?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           accent: string
@@ -749,6 +895,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      apply_wallet_delta: {
+        Args: {
+          _amount: number
+          _coffee_delta?: number
+          _description: string
+          _kind: string
+          _metadata?: Json
+          _pending_delta?: number
+          _user_id: string
+        }
+        Returns: number
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
