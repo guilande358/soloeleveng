@@ -23,6 +23,11 @@ import {
 } from "lucide-react";
 
 import { AccessFull, AccessWidget } from "@/components/os/access-panel";
+import { ContractsFull, ContractsWidget } from "@/components/os/contracts-panel";
+import { HighlightsFull, HighlightsWidget } from "@/components/os/highlights-panel";
+import { LivesFull, LivesWidget } from "@/components/os/lives-panel";
+import { MyCardFull, MyCardWidget } from "@/components/os/mycard-panel";
+import { WalletFull, WalletWidget } from "@/components/os/wallet-panel";
 import { ActionButton, Avatar, Chip, Meter, Row, Sparkline, StatTile } from "@/components/os/ui";
 import {
   ACHIEVEMENTS,
@@ -63,237 +68,15 @@ export type PanelDef = {
 
 /* ── 1. IA Highlights ─────────────────────────────────────────────────── */
 
-function HighlightsWidget() {
-  const { lang } = useI18n();
-  const top = HIGHLIGHTS[0]!;
-  return (
-    <div className="space-y-3">
-      <div className="relative aspect-video overflow-hidden rounded-lg border border-border/60 bg-[linear-gradient(140deg,var(--surface-2),var(--background))]">
-        <span className="os-fog absolute inset-0 -z-0 opacity-60" aria-hidden />
-        <div className="absolute inset-0 grid place-items-center">
-          <span className="grid h-14 w-14 place-items-center rounded-full border border-primary/70 bg-background/60 shadow-[0_0_30px_-4px_var(--neon)] transition-transform group-hover:scale-110">
-            <Play className="h-6 w-6 text-primary" />
-          </span>
-        </div>
-        <div className="absolute top-2 left-2 flex items-center gap-1.5">
-          <Chip glow="var(--neon-pink)">IA</Chip>
-          <Chip>{top.game}</Chip>
-        </div>
-        <span className="absolute right-2 bottom-2 rounded-sm bg-background/80 px-1.5 font-display text-[10px]">
-          {top.duration}
-        </span>
-      </div>
-      <div>
-        <p className="truncate font-display text-sm">{pick(top.title, lang)}</p>
-        <p className="text-[10px] tracking-widest text-muted-foreground uppercase">
-          {top.map} · {top.date} · KDA {top.kda}
-        </p>
-      </div>
-      <div className="flex flex-wrap gap-1.5">
-        {top.tags.map((tg) => (
-          <Chip key={tg} glow="var(--neon-gold)">
-            {tg}
-          </Chip>
-        ))}
-      </div>
-    </div>
-  );
-}
 
-function HighlightsFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
-      <div className="space-y-3">
-        <div className="relative aspect-video overflow-hidden rounded-xl border border-border/60 bg-[linear-gradient(140deg,var(--surface-2),var(--background))]">
-          <div className="absolute inset-0 grid place-items-center">
-            <Play className="h-10 w-10 text-primary" />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {HIGHLIGHTS.map((h) => (
-            <div key={h.id} className="rounded-lg border border-border/50 bg-surface-2/40 p-2">
-              <p className="truncate font-display text-[11px]">{pick(h.title, lang)}</p>
-              <p className="text-[9px] tracking-wider text-muted-foreground uppercase">
-                {h.game} · {h.duration}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <ActionButton>{lang === "pt" ? "Baixar" : "Download"}</ActionButton>
-          <ActionButton variant="ghost">{lang === "pt" ? "Compartilhar" : "Share"}</ActionButton>
-          <ActionButton variant="ghost">{lang === "pt" ? "Editar" : "Edit"}</ActionButton>
-        </div>
-      </div>
-      <div className="space-y-3">
-        <div className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-          <p className="mb-2 flex items-center gap-1.5 font-display text-[11px] tracking-[0.18em] uppercase">
-            <Brain className="h-3.5 w-3.5 text-neon-cyan" /> Timeline IA
-          </p>
-          {AI_TIMELINE.map((e) => (
-            <Row key={e.at} label={pick(e, lang)} value={e.at} glow="var(--neon-cyan)" />
-          ))}
-        </div>
-        <div className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-          <p className="mb-2 flex items-center gap-1.5 font-display text-[11px] tracking-[0.18em] uppercase">
-            <Sparkles className="h-3.5 w-3.5 text-neon-gold" />
-            {lang === "pt" ? "Análise" : "Analysis"}
-          </p>
-          <ul className="space-y-1.5 text-[11px] text-muted-foreground">
-            {AI_INSIGHTS.map((i) => (
-              <li key={i.en}>· {pick(i, lang)}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ── 2. Lives ─────────────────────────────────────────────────────────── */
 
-function LivesWidget() {
-  return (
-    <div className="scroll-hidden flex gap-2 overflow-x-auto">
-      {LIVES.map((l) => (
-        <div
-          key={l.id}
-          className="w-32 shrink-0 rounded-lg border border-border/50 bg-surface-2/40 p-2"
-        >
-          <div
-            className="mb-2 grid h-14 place-items-center rounded-md border border-border/50"
-            style={{ background: `radial-gradient(circle at 50% 40%, ${l.hue}33, transparent)` }}
-          >
-            <Radio className="h-4 w-4" style={{ color: l.hue }} />
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Avatar name={l.user} glow={l.hue} />
-            <div className="min-w-0">
-              <p className="truncate font-display text-[10px]">{l.user}</p>
-              <p className="truncate text-[9px] text-muted-foreground">{l.game}</p>
-            </div>
-          </div>
-          <p className="mt-1.5 text-[9px] tracking-wider text-muted-foreground uppercase">
-            {l.viewers} · {l.uptime}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
 
-function LivesFull() {
-  const { lang } = useI18n();
-  const live = LIVES[0]!;
-  return (
-    <div className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
-      <div className="space-y-3">
-        <div className="relative aspect-video overflow-hidden rounded-xl border border-border/60 bg-[linear-gradient(140deg,var(--surface-2),var(--background))]">
-          <span className="absolute top-2 left-2">
-            <Chip glow="var(--neon-pink)">LIVE</Chip>
-          </span>
-          <div className="absolute inset-0 grid place-items-center">
-            <Radio className="h-10 w-10 text-neon-pink" />
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <ActionButton>
-            <span className="flex items-center gap-1.5">
-              <Coffee className="h-3.5 w-3.5" /> {lang === "pt" ? "Enviar café" : "Send coffee"}
-            </span>
-          </ActionButton>
-          <ActionButton variant="ghost">
-            <span className="flex items-center gap-1.5">
-              <Heart className="h-3.5 w-3.5" /> {lang === "pt" ? "Curtir" : "Like"}
-            </span>
-          </ActionButton>
-          <ActionButton variant="ghost">{lang === "pt" ? "Compartilhar" : "Share"}</ActionButton>
-          <span className="text-[10px] tracking-wider text-muted-foreground uppercase">
-            {live.user} · {live.viewers}
-          </span>
-        </div>
-      </div>
-      <div className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-        <p className="mb-2 font-display text-[11px] tracking-[0.18em] uppercase">Chat</p>
-        <ul className="space-y-2 text-[11px]">
-          {LIVE_CHAT.map((c) => (
-            <li key={c.user} className="flex gap-2">
-              <span className="font-display text-neon-cyan">{c.user}</span>
-              <span className="text-muted-foreground">{pick(c, lang)}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
 
 /* ── 3. Minha Carta ───────────────────────────────────────────────────── */
 
-function MyCardWidget() {
-  const { activeCardId } = useHud();
-  const card = findCard(activeCardId ?? undefined) ?? CARDS[5]!;
-  return (
-    <div className="flex items-center gap-3">
-      <div
-        className="os-float-card grid h-24 w-16 shrink-0 place-items-center rounded-lg border font-display text-[10px]"
-        style={{
-          borderColor: card.glow,
-          background: `linear-gradient(160deg, ${card.glow}33, transparent)`,
-          boxShadow: `0 0 26px -6px ${card.glow}`,
-        }}
-      >
-        {card.name}
-      </div>
-      <div className="min-w-0 flex-1 space-y-1.5">
-        <p className="font-display text-sm" style={{ color: card.glow }}>
-          {card.name} Card
-        </p>
-        <Meter value={12450} max={18000} glow={card.glow} />
-        <p className="text-[10px] tracking-wider text-muted-foreground uppercase">
-          Lv 82 · {card.medals} med · {card.targetRank}
-        </p>
-      </div>
-    </div>
-  );
-}
 
-function MyCardFull() {
-  const { lang } = useI18n();
-  const { activeCardId } = useHud();
-  const card = findCard(activeCardId ?? undefined) ?? CARDS[5]!;
-  return (
-    <div className="grid gap-4 sm:grid-cols-[auto_1fr]">
-      <div
-        className="os-float-card mx-auto grid h-64 w-44 place-items-center rounded-2xl border font-display"
-        style={{
-          borderColor: card.glow,
-          background: `linear-gradient(160deg, ${card.glow}44, transparent 70%)`,
-          boxShadow: `0 0 60px -12px ${card.glow}`,
-          transform: "perspective(900px) rotateY(-10deg)",
-        }}
-      >
-        {card.name}
-      </div>
-      <div className="space-y-2">
-        <Row label={lang === "pt" ? "Rank atual" : "Current rank"} value={card.currentRank} />
-        <Row label={lang === "pt" ? "Rank objetivo" : "Target rank"} value={card.targetRank} glow={card.glow} />
-        <Row label={lang === "pt" ? "Medalhas" : "Medals"} value={card.medals} />
-        <Row label={lang === "pt" ? "Tempo restante" : "Time left"} value={`${card.days} ${lang === "pt" ? "dias" : "days"}`} />
-        <Row label="XP" value="12 450 / 18 000" />
-        <div className="flex flex-wrap gap-2 pt-2">
-          <Link to="/cartas">
-            <ActionButton>{lang === "pt" ? "Upgrade" : "Upgrade"}</ActionButton>
-          </Link>
-          <Link to="/perfil">
-            <ActionButton variant="ghost">{lang === "pt" ? "Histórico" : "History"}</ActionButton>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ── 4. Guilda ────────────────────────────────────────────────────────── */
 
@@ -355,47 +138,7 @@ function GuildFull() {
 
 /* ── 6. Contratos ─────────────────────────────────────────────────────── */
 
-function ContractsWidget() {
-  return (
-    <div>
-      {CONTRACTS.map((c) => (
-        <Row
-          key={c.id}
-          label={c.card}
-          value={c.time}
-          glow={c.status === "running" ? "var(--neon-cyan)" : "var(--neon-green)"}
-        />
-      ))}
-    </div>
-  );
-}
 
-function ContractsFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="grid gap-2 sm:grid-cols-2">
-      {CONTRACTS.map((c) => (
-        <div key={c.id} className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-          <div className="flex items-center justify-between gap-2">
-            <p className="font-display text-[12px]">{c.card}</p>
-            <Chip glow={c.status === "running" ? "var(--neon-cyan)" : "var(--neon-green)"}>
-              {c.status === "running"
-                ? lang === "pt"
-                  ? "Em curso"
-                  : "Running"
-                : lang === "pt"
-                  ? "Concluído"
-                  : "Done"}
-            </Chip>
-          </div>
-          <Row label={lang === "pt" ? "Objetivo" : "Objective"} value={c.objective} />
-          <Row label={lang === "pt" ? "Duração" : "Duration"} value={c.time} />
-          <Row label={lang === "pt" ? "Jogador" : "Player"} value="ProPlayerBR" />
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /* ── 7. Amigos ────────────────────────────────────────────────────────── */
 
@@ -494,41 +237,7 @@ function MissionsFull() {
 
 /* ── 9. Carteira ──────────────────────────────────────────────────────── */
 
-function WalletWidget() {
-  const { lang } = useI18n();
-  return (
-    <div className="space-y-2">
-      <p className="text-glow font-display text-lg">{WALLET.balance}</p>
-      <Row label={lang === "pt" ? "Ganhos" : "Earnings"} value={WALLET.earnings} glow="var(--neon-green)" />
-      <Row label={lang === "pt" ? "Cafés" : "Coffees"} value={WALLET.coffees} glow="var(--neon-gold)" />
-    </div>
-  );
-}
 
-function WalletFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      <div className="space-y-2">
-        <StatTile label={lang === "pt" ? "Saldo" : "Balance"} value={WALLET.balance} />
-        <Row label={lang === "pt" ? "Ganhos totais" : "Total earnings"} value={WALLET.earnings} />
-        <Row label={lang === "pt" ? "Pendente" : "Pending"} value={WALLET.pending} />
-        <Row label={lang === "pt" ? "Cafés" : "Coffees"} value={WALLET.coffees} glow="var(--neon-gold)" />
-        <div className="pt-2">
-          <ActionButton>{lang === "pt" ? "Saque" : "Withdraw"}</ActionButton>
-        </div>
-      </div>
-      <div className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-        <p className="mb-2 font-display text-[11px] tracking-[0.18em] uppercase">
-          {lang === "pt" ? "Histórico" : "History"}
-        </p>
-        {WALLET_HISTORY.map((h) => (
-          <Row key={h.id} label={`${pick(h, lang)} · ${h.date}`} value={h.value} />
-        ))}
-      </div>
-    </div>
-  );
-}
 
 /* ── 10. Estatísticas ─────────────────────────────────────────────────── */
 
