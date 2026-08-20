@@ -1,12 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
 
+import { BanWarningDialog } from "@/components/hud/ban-warning-dialog";
 import { CardsSection } from "@/components/hud/cards-section";
 import { GameCardTile } from "@/components/hud/game-card-tile";
-import { CARDS } from "@/data/game";
-import { BanWarningDialog } from "@/components/hud/ban-warning-dialog";
+import { resolveCards } from "@/lib/card-map";
+import { listCards } from "@/lib/cards.functions";
 import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
-import { useState } from "react";
 
 export const Route = createFileRoute("/cartas")({
   head: () => ({
@@ -19,6 +22,8 @@ export const Route = createFileRoute("/cartas")({
       },
       { property: "og:title", content: "Cartas e pacotes — Solo Eleveng Evolution" },
       { property: "og:description", content: "Cartas de elevação com custo, rank e medalhas." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "/cartas" },
     ],
     links: [{ rel: "canonical", href: "/cartas" }],
@@ -29,14 +34,24 @@ export const Route = createFileRoute("/cartas")({
 function CardsPage() {
   const { t } = useI18n();
   const { activeCardId, selectCard } = useHud();
+  const navigate = useNavigate();
   const [pending, setPending] = useState<string | null>(null);
+
+  const fetchCards = useServerFn(listCards);
+  const { data } = useQuery({ queryKey: ["cards"], queryFn: () => fetchCards() });
+  const cards = resolveCards(data);
+
+  function choose(id: string) {
+    selectCard(id);
+    void navigate({ to: "/checkout" });
+  }
 
   function request(id: string) {
     if (activeCardId && activeCardId !== id) {
       setPending(id);
       return;
     }
-    selectCard(id);
+    choose(id);
   }
 
   return (
@@ -46,10 +61,10 @@ function CardsPage() {
 
       <section>
         <h2 className="mb-3 font-display text-sm tracking-[0.18em] uppercase">
-          {t("nav.cards")} · {CARDS.length}
+          {t("nav.cards")} · {cards.length}
         </h2>
         <div className="grid grid-cols-2 justify-items-center gap-3 sm:grid-cols-4">
-          {CARDS.map((card) => (
+          {cards.map((card) => (
             <GameCardTile
               key={card.id}
               card={card}
@@ -66,7 +81,7 @@ function CardsPage() {
           if (!open) setPending(null);
         }}
         onConfirm={() => {
-          if (pending) selectCard(pending);
+          if (pending) choose(pending);
           setPending(null);
         }}
       />
