@@ -3,11 +3,9 @@ import {
   Bell,
   Brain,
   CalendarDays,
-  Coffee,
   CreditCard,
   Film,
   Gamepad2,
-  Heart,
   KeyRound,
   Play,
   Radio,
@@ -31,26 +29,19 @@ import { WalletFull, WalletWidget } from "@/components/os/wallet-panel";
 import { ActionButton, Avatar, Chip, Meter, Row, Sparkline, StatTile } from "@/components/os/ui";
 import {
   ACHIEVEMENTS,
-  AI_INSIGHTS,
-  AI_TIMELINE,
   EVENTS,
   FRIENDS,
   GUILD,
   GUILD_CHAT,
-  HIGHLIGHTS,
-  LIVES,
-  LIVE_CHAT,
   MARKET,
   MISSIONS,
   MISSION_CYCLE_LABEL,
   SETTINGS_GROUPS,
   STATS,
   STAT_TREND,
-  WALLET,
-  WALLET_HISTORY,
   type Bi,
 } from "@/data/os";
-import { CARDS, CONTRACTS, MEDALS, NOTIFICATIONS, VIDEOS, findCard } from "@/data/game";
+import { MEDALS, NOTIFICATIONS, VIDEOS } from "@/data/game";
 import { useHud } from "@/lib/hud-state";
 import { useI18n, type Lang } from "@/lib/i18n";
 
