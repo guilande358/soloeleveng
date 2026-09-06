@@ -31,7 +31,9 @@ function useHighlights() {
   });
 
   const items: HighlightItem[] = (mine.data?.length ? mine.data : shared.data) ?? [];
-  return { items, isLoading: mine.isLoading || shared.isLoading, isMine: Boolean(mine.data?.length) };
+  const isLoading = shared.isLoading || (Boolean(userId) && mine.isLoading);
+  return { items, isLoading, isMine: Boolean(mine.data?.length) };
+
 }
 
 const title = (h: HighlightItem, lang: string) => (lang === "pt" ? h.title_pt : h.title_en);
