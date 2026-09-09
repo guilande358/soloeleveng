@@ -19,6 +19,7 @@ export type Database = {
           created_at: string
           expires_at: string
           game: string
+          game_id: string | null
           id: string
           revoked: boolean
           token: string
@@ -29,6 +30,7 @@ export type Database = {
           created_at?: string
           expires_at: string
           game: string
+          game_id?: string | null
           id?: string
           revoked?: boolean
           token: string
@@ -39,13 +41,22 @@ export type Database = {
           created_at?: string
           expires_at?: string
           game?: string
+          game_id?: string | null
           id?: string
           revoked?: boolean
           token?: string
           used_at?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "access_links_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       cards: {
         Row: {
@@ -314,6 +325,54 @@ export type Database = {
         }
         Relationships: []
       }
+      games: {
+        Row: {
+          access_rules_en: string
+          access_rules_pt: string
+          created_at: string
+          elevation_enabled: boolean
+          hue: string
+          id: string
+          max_sessions: number
+          name: string
+          protection_rules_en: string
+          protection_rules_pt: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          access_rules_en?: string
+          access_rules_pt?: string
+          created_at?: string
+          elevation_enabled?: boolean
+          hue?: string
+          id?: string
+          max_sessions?: number
+          name: string
+          protection_rules_en?: string
+          protection_rules_pt?: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          access_rules_en?: string
+          access_rules_pt?: string
+          created_at?: string
+          elevation_enabled?: boolean
+          hue?: string
+          id?: string
+          max_sessions?: number
+          name?: string
+          protection_rules_en?: string
+          protection_rules_pt?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       guild_members: {
         Row: {
           guild_id: string
@@ -478,10 +537,76 @@ export type Database = {
         }
         Relationships: []
       }
+      matches: {
+        Row: {
+          accuracy: number
+          assists: number
+          created_at: string
+          deaths: number
+          duration_minutes: number
+          game_id: string | null
+          game_name: string
+          id: string
+          kills: number
+          medals: number
+          mvp: boolean
+          note: string | null
+          played_at: string
+          result: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          accuracy?: number
+          assists?: number
+          created_at?: string
+          deaths?: number
+          duration_minutes?: number
+          game_id?: string | null
+          game_name: string
+          id?: string
+          kills?: number
+          medals?: number
+          mvp?: boolean
+          note?: string | null
+          played_at?: string
+          result?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          accuracy?: number
+          assists?: number
+          created_at?: string
+          deaths?: number
+          duration_minutes?: number
+          game_id?: string | null
+          game_name?: string
+          id?: string
+          kills?: number
+          medals?: number
+          mvp?: boolean
+          note?: string | null
+          played_at?: string
+          result?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matches_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       missions: {
         Row: {
           cycle: string
           id: string
+          kind: string
           label_en: string
           label_pt: string
           sort_order: number
@@ -491,6 +616,7 @@ export type Database = {
         Insert: {
           cycle: string
           id?: string
+          kind?: string
           label_en: string
           label_pt: string
           sort_order?: number
@@ -500,6 +626,7 @@ export type Database = {
         Update: {
           cycle?: string
           id?: string
+          kind?: string
           label_en?: string
           label_pt?: string
           sort_order?: number
@@ -696,10 +823,13 @@ export type Database = {
           bio: string
           created_at: string
           id: string
+          level: number
           mode: string
           name: string
+          rank: string
           title: string
           updated_at: string
+          xp: number
         }
         Insert: {
           accent?: string
@@ -709,10 +839,13 @@ export type Database = {
           bio?: string
           created_at?: string
           id: string
+          level?: number
           mode?: string
           name?: string
+          rank?: string
           title?: string
           updated_at?: string
+          xp?: number
         }
         Update: {
           accent?: string
@@ -722,10 +855,13 @@ export type Database = {
           bio?: string
           created_at?: string
           id?: string
+          level?: number
           mode?: string
           name?: string
+          rank?: string
           title?: string
           updated_at?: string
+          xp?: number
         }
         Relationships: []
       }
@@ -914,6 +1050,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      rank_for_xp: { Args: { _xp: number }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
