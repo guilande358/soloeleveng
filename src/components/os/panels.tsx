@@ -24,7 +24,12 @@ import { AccessFull, AccessWidget } from "@/components/os/access-panel";
 import { ContractsFull, ContractsWidget } from "@/components/os/contracts-panel";
 import { HighlightsFull, HighlightsWidget } from "@/components/os/highlights-panel";
 import { LivesFull, LivesWidget } from "@/components/os/lives-panel";
+import { MarketFull, MarketWidget } from "@/components/os/market-panel";
+import { MissionsFull, MissionsWidget } from "@/components/os/missions-panel";
 import { MyCardFull, MyCardWidget } from "@/components/os/mycard-panel";
+import { NotificationsFull, NotificationsWidget } from "@/components/os/notifications-panel";
+import { ReplaysFull, ReplaysWidget } from "@/components/os/replays-panel";
+import { StatsFull, StatsWidget } from "@/components/os/stats-panel";
 import { WalletFull, WalletWidget } from "@/components/os/wallet-panel";
 import { ActionButton, Avatar, Chip, Meter, Row, Sparkline, StatTile } from "@/components/os/ui";
 import {
@@ -33,15 +38,10 @@ import {
   FRIENDS,
   GUILD,
   GUILD_CHAT,
-  MARKET,
-  MISSIONS,
-  MISSION_CYCLE_LABEL,
   SETTINGS_GROUPS,
-  STATS,
-  STAT_TREND,
   type Bi,
 } from "@/data/os";
-import { MEDALS, NOTIFICATIONS, VIDEOS } from "@/data/game";
+import { MEDALS } from "@/data/game";
 import { useHud } from "@/lib/hud-state";
 import { useI18n, type Lang } from "@/lib/i18n";
 
