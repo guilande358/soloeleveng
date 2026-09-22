@@ -24,7 +24,12 @@ import { AccessFull, AccessWidget } from "@/components/os/access-panel";
 import { ContractsFull, ContractsWidget } from "@/components/os/contracts-panel";
 import { HighlightsFull, HighlightsWidget } from "@/components/os/highlights-panel";
 import { LivesFull, LivesWidget } from "@/components/os/lives-panel";
+import { MarketFull, MarketWidget } from "@/components/os/market-panel";
+import { MissionsFull, MissionsWidget } from "@/components/os/missions-panel";
 import { MyCardFull, MyCardWidget } from "@/components/os/mycard-panel";
+import { NotificationsFull, NotificationsWidget } from "@/components/os/notifications-panel";
+import { ReplaysFull, ReplaysWidget } from "@/components/os/replays-panel";
+import { StatsFull, StatsWidget } from "@/components/os/stats-panel";
 import { WalletFull, WalletWidget } from "@/components/os/wallet-panel";
 import { ActionButton, Avatar, Chip, Meter, Row, Sparkline, StatTile } from "@/components/os/ui";
 import {
@@ -33,15 +38,10 @@ import {
   FRIENDS,
   GUILD,
   GUILD_CHAT,
-  MARKET,
-  MISSIONS,
-  MISSION_CYCLE_LABEL,
   SETTINGS_GROUPS,
-  STATS,
-  STAT_TREND,
   type Bi,
 } from "@/data/os";
-import { MEDALS, NOTIFICATIONS, VIDEOS } from "@/data/game";
+import { MEDALS } from "@/data/game";
 import { useHud } from "@/lib/hud-state";
 import { useI18n, type Lang } from "@/lib/i18n";
 
@@ -183,117 +183,8 @@ function FriendsFull() {
   );
 }
 
-/* ── 8. Missões ───────────────────────────────────────────────────────── */
-
-function MissionsWidget() {
-  const { lang } = useI18n();
-  return (
-    <div className="space-y-2">
-      {MISSIONS.slice(0, 3).map((m) => (
-        <div key={m.id}>
-          <div className="flex items-center justify-between gap-2 text-[10px]">
-            <span className="truncate text-muted-foreground">{pick(m.label, lang)}</span>
-            <span className="font-display">
-              {m.progress}/{m.total}
-            </span>
-          </div>
-          <div className="mt-1">
-            <Meter value={m.progress} max={m.total} glow="var(--neon-green)" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function MissionsFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="space-y-2">
-      {MISSIONS.map((m) => (
-        <div key={m.id} className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-          <div className="mb-1.5 flex items-center justify-between gap-2">
-            <p className="truncate font-display text-[12px]">{pick(m.label, lang)}</p>
-            <Chip glow="var(--neon-green)">{pick(MISSION_CYCLE_LABEL[m.cycle], lang)}</Chip>
-          </div>
-          <Meter value={m.progress} max={m.total} glow="var(--neon-green)" />
-          <p className="mt-1.5 text-[10px] tracking-wider text-muted-foreground uppercase">
-            {m.progress}/{m.total} · +{m.xp} XP
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ── 9. Carteira ──────────────────────────────────────────────────────── */
-
-
-
-/* ── 10. Estatísticas ─────────────────────────────────────────────────── */
-
-function StatsWidget() {
-  const { lang } = useI18n();
-  return (
-    <div className="grid grid-cols-3 gap-2">
-      {STATS.slice(0, 6).map((s) => (
-        <StatTile key={s.en} label={pick(s, lang)} value={s.value} />
-      ))}
-    </div>
-  );
-}
-
-function StatsFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="space-y-4">
-      <Sparkline data={STAT_TREND} />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {STATS.map((s) => (
-          <StatTile key={s.en} label={pick(s, lang)} value={s.value} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ── 11. Notificações ─────────────────────────────────────────────────── */
-
-function NotificationsWidget() {
-  const { lang } = useI18n();
-  return (
-    <div>
-      {NOTIFICATIONS.slice(0, 3).map((n) => (
-        <Row
-          key={n.id}
-          label={lang === "pt" ? n.titlePt : n.titleEn}
-          value={n.time}
-          glow="var(--neon-cyan)"
-        />
-      ))}
-    </div>
-  );
-}
-
-function NotificationsFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="space-y-2">
-      {NOTIFICATIONS.map((n) => (
-        <div key={n.id} className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-          <div className="flex items-center justify-between gap-2">
-            <p className="truncate font-display text-[12px]">{lang === "pt" ? n.titlePt : n.titleEn}</p>
-            <span className="text-[10px] text-muted-foreground">{n.time}</span>
-          </div>
-          <p className="text-[11px] text-muted-foreground">{lang === "pt" ? n.bodyPt : n.bodyEn}</p>
-        </div>
-      ))}
-      <Link to="/notificacoes" className="inline-block pt-1">
-        <ActionButton variant="ghost">{lang === "pt" ? "Central completa" : "Full center"}</ActionButton>
-      </Link>
-    </div>
-  );
-}
+/* ── 8-11. Missões, Carteira, Estatísticas e Notificações vêm dos painéis
+       reais em missions-panel / wallet-panel / stats-panel / notifications-panel ── */
 
 /* ── 12. Eventos ──────────────────────────────────────────────────────── */
 
@@ -327,80 +218,7 @@ function EventsFull() {
   );
 }
 
-/* ── 13. Replays ──────────────────────────────────────────────────────── */
-
-function ReplaysWidget() {
-  const { lang } = useI18n();
-  return (
-    <div>
-      {VIDEOS.map((v) => (
-        <Row
-          key={v.id}
-          label={lang === "pt" ? v.titlePt : v.titleEn}
-          value={v.duration}
-          glow="var(--neon-pink)"
-        />
-      ))}
-    </div>
-  );
-}
-
-function ReplaysFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="grid gap-2 sm:grid-cols-3">
-      {VIDEOS.map((v) => (
-        <div key={v.id} className="rounded-xl border border-border/50 bg-surface-2/40 p-2">
-          <div className="mb-2 grid aspect-video place-items-center rounded-md border border-border/50 bg-background/60">
-            <Play className="h-6 w-6 text-neon-pink" />
-          </div>
-          <p className="truncate font-display text-[11px]">{lang === "pt" ? v.titlePt : v.titleEn}</p>
-          <p className="text-[9px] tracking-wider text-muted-foreground uppercase">
-            {v.duration} · {v.date}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ── 14. Marketplace ──────────────────────────────────────────────────── */
-
-function MarketWidget() {
-  const { lang } = useI18n();
-  return (
-    <div>
-      {MARKET.slice(0, 4).map((m) => (
-        <Row key={m.id} label={pick(m.label, lang)} value={m.price} glow={m.hue} />
-      ))}
-    </div>
-  );
-}
-
-function MarketFull() {
-  const { lang } = useI18n();
-  return (
-    <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-      {MARKET.map((m) => (
-        <div key={m.id} className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
-          <div
-            className="mb-2 grid h-20 place-items-center rounded-md"
-            style={{ background: `radial-gradient(circle at 50% 40%, ${m.hue}44, transparent)` }}
-          >
-            <ShoppingBag className="h-5 w-5" style={{ color: m.hue }} />
-          </div>
-          <p className="truncate font-display text-[12px]">{pick(m.label, lang)}</p>
-          <p className="text-[11px] text-muted-foreground">{m.price}</p>
-          <div className="mt-2">
-            <Link to="/checkout">
-              <ActionButton>{lang === "pt" ? "Comprar" : "Buy"}</ActionButton>
-            </Link>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
+/* ── 13. Replays e 14. Marketplace vêm de replays-panel / market-panel ── */
 
 /* ── 15. Perfil ───────────────────────────────────────────────────────── */
 
