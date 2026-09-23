@@ -124,28 +124,48 @@ export function AccessFull() {
           : "Sessions you authorized, with encrypted links and instant revocation. Always use within each game's terms of service."}
       </p>
 
-      <div className="flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-surface-2/40 p-3">
-        <KeyRound className="h-4 w-4 text-neon-green" />
-        <select
-          value={game}
-          onChange={(e) => setGame(e.target.value)}
-          className="min-w-[8rem] rounded-md border border-border bg-background px-2 py-1.5 text-xs"
+      <div className="space-y-2 rounded-xl border border-border/50 bg-surface-2/40 p-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <KeyRound className="h-4 w-4 text-neon-green" />
+          <select
+            value={game}
+            onChange={(e) => setGame(e.target.value)}
+            className="min-w-[8rem] rounded-md border border-border bg-background px-2 py-1.5 text-xs"
+          >
+            {games.map((g) => (
+              <option key={g.id} value={g.name}>
+                {g.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            onClick={() => create.mutate()}
+            disabled={create.isPending || !selected}
+            className="ml-auto flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 font-display text-[11px] tracking-[0.16em] text-primary-foreground uppercase transition-transform active:scale-95 disabled:opacity-50"
+          >
+            <RefreshCw className={create.isPending ? "h-3.5 w-3.5 animate-spin" : "h-3.5 w-3.5"} />
+            {t("secure.new")}
+          </button>
+        </div>
+        {selected && (
+          <div className="space-y-1 border-t border-border/50 pt-2 text-[11px] text-muted-foreground">
+            <p>{lang === "pt" ? selected.access_rules_pt : selected.access_rules_en}</p>
+            <p className="flex gap-1.5">
+              <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neon-green" />
+              {lang === "pt" ? selected.protection_rules_pt : selected.protection_rules_en}
+            </p>
+            <p className="text-[10px] tracking-wider uppercase">
+              {lang === "pt" ? "Sessões simultâneas" : "Simultaneous sessions"}: {selected.max_sessions}
+            </p>
+          </div>
+        )}
+        <Link
+          to="/jogos"
+          className="inline-block text-[10px] tracking-wider text-muted-foreground uppercase underline"
         >
-          {ACCESSES.map((a) => (
-            <option key={a.id} value={a.game}>
-              {a.game}
-            </option>
-          ))}
-        </select>
-        <button
-          type="button"
-          onClick={() => create.mutate()}
-          disabled={create.isPending}
-          className="ml-auto flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 font-display text-[11px] tracking-[0.16em] text-primary-foreground uppercase transition-transform active:scale-95 disabled:opacity-50"
-        >
-          <RefreshCw className={create.isPending ? "h-3.5 w-3.5 animate-spin" : "h-3.5 w-3.5"} />
-          {t("secure.new")}
-        </button>
+          {lang === "pt" ? "Ver todos os jogos suportados" : "See all supported games"}
+        </Link>
       </div>
 
       <div className="grid gap-2 sm:grid-cols-2">
