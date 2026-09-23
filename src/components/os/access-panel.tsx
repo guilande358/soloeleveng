@@ -6,12 +6,16 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { Chip, Row } from "@/components/os/ui";
-import { ACCESSES, ACCESS_STATE_LABEL } from "@/data/os";
 import { useHud } from "@/lib/hud-state";
-import { useI18n, type Lang } from "@/lib/i18n";
+import { useI18n } from "@/lib/i18n";
 import { createAccessLink, listAccessLinks, revokeAccessLink } from "@/lib/access.functions";
+import { listGames } from "@/lib/games.functions";
 
-const pick = (b: { pt: string; en: string }, lang: Lang) => (lang === "pt" ? b.pt : b.en);
+function useGames() {
+  const fetchGames = useServerFn(listGames);
+  const { data } = useQuery({ queryKey: ["games"], queryFn: () => fetchGames() });
+  return (data ?? []).filter((g) => g.elevation_enabled);
+}
 
 function fmtRemaining(iso: string) {
   const ms = new Date(iso).getTime() - Date.now();
