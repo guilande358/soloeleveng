@@ -27,33 +27,45 @@ function fmtRemaining(iso: string) {
 
 export function AccessWidget() {
   const { lang } = useI18n();
+  const { userId } = useHud();
+  const games = useGames();
   const fetchLinks = useServerFn(listAccessLinks);
   const { data: links } = useQuery({
     queryKey: ["access-links"],
     queryFn: () => fetchLinks(),
+    enabled: Boolean(userId),
   });
 
-  const active = links?.find((l) => !l.revoked && new Date(l.expires_at).getTime() > Date.now());
+  const authorized = (links ?? []).filter(
+    (l) => !l.revoked && new Date(l.expires_at).getTime() > Date.now(),
+  );
 
   return (
     <div className="space-y-2">
-      {active ? (
+      {authorized.length > 0 ? (
         <>
-          <Row label={active.game} value={fmtRemaining(active.expires_at)} glow="var(--neon-green)" />
-          <p className="truncate text-[10px] tracking-wider text-muted-foreground uppercase">
-            seev.link/{active.token}
+          {authorized.slice(0, 3).map((l) => (
+            <Row key={l.id} label={l.game} value={fmtRemaining(l.expires_at)} glow="var(--neon-green)" />
+          ))}
+          <p className="text-[10px] tracking-wider text-muted-foreground uppercase">
+            {lang === "pt" ? "Contas autorizadas" : "Authorized accounts"}
           </p>
         </>
       ) : (
         <>
-          {ACCESSES.slice(0, 3).map((a) => (
+          {games.slice(0, 3).map((g) => (
             <Row
-              key={a.id}
-              label={a.game}
-              value={pick(ACCESS_STATE_LABEL[a.state], lang)}
-              glow={a.state === "protected" ? "var(--neon-green)" : a.state === "review" ? "var(--neon-gold)" : undefined}
+              key={g.id}
+              label={g.name}
+              value={lang === "pt" ? "Protegido" : "Protected"}
+              glow="var(--neon-green)"
             />
           ))}
+          {games.length === 0 && (
+            <p className="text-[11px] text-muted-foreground">
+              {lang === "pt" ? "Nenhum jogo suportado ainda." : "No supported games yet."}
+            </p>
+          )}
         </>
       )}
     </div>
@@ -96,7 +108,7 @@ export function AccessFull() {
   }
 
   const create = useMutation({
-    mutationFn: () => createFn({ data: { game, minutes: 15 } }),
+    mutationFn: () => createFn({ data: { game: selected?.name ?? game, minutes: 15 } }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["access-links"] });
       toast.success(lang === "pt" ? "Link criado" : "Link created");
