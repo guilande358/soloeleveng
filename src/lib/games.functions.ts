@@ -85,9 +85,12 @@ export const updateGame = createServerFn({ method: "POST" })
     z.object({ id: z.string().uuid(), patch: GameInput.partial() }).parse(input),
   )
   .handler(async ({ data, context }) => {
+    const patch = Object.fromEntries(
+      Object.entries(data.patch).filter(([, v]) => v !== undefined),
+    ) as Database["public"]["Tables"]["games"]["Update"];
     const { data: row, error } = await context.supabase
       .from("games")
-      .update(data.patch)
+      .update(patch)
       .eq("id", data.id)
       .select("*")
       .single();
