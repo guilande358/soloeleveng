@@ -67,7 +67,9 @@ export function AccessFull() {
   const fetchLinks = useServerFn(listAccessLinks);
   const createFn = useServerFn(createAccessLink);
   const revokeFn = useServerFn(revokeAccessLink);
-  const [game, setGame] = useState("Valorant");
+  const games = useGames();
+  const [game, setGame] = useState("");
+  const selected = games.find((g) => g.name === game) ?? games[0];
 
   const { data: links, isLoading } = useQuery({
     queryKey: ["access-links"],
