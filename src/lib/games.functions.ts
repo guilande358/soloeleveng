@@ -87,7 +87,7 @@ export const updateGame = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const patch = Object.fromEntries(
       Object.entries(data.patch).filter(([, v]) => v !== undefined),
-    ) as Record<string, string | number | boolean>;
+    ) as Database["public"]["Tables"]["games"]["Update"];
     const { data: row, error } = await context.supabase
       .from("games")
       .update(patch)
