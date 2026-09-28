@@ -12,10 +12,10 @@ import { capturePaypalPayment, capturePaypalTopUp } from "@/lib/paypal.functions
 export const Route = createFileRoute("/pagamento")({
   ssr: false,
   validateSearch: (search: Record<string, unknown>) => ({
-    token: typeof search.token === "string" ? search.token : undefined,
-    ref: typeof search.ref === "string" ? search.ref : undefined,
-    recarga: search.recarga === "1" || search.recarga === 1 ? true : undefined,
-    cancelado: search.cancelado === "1" || search.cancelado === 1 ? true : undefined,
+    token: typeof search["token"] === "string" ? search["token"] : undefined,
+    ref: typeof search["ref"] === "string" ? search["ref"] : undefined,
+    recarga: search["recarga"] === "1" || search["recarga"] === 1 ? true : undefined,
+    cancelado: search["cancelado"] === "1" || search["cancelado"] === 1 ? true : undefined,
   }),
   head: () => ({
     meta: [
