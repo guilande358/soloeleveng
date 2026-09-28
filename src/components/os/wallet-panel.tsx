@@ -7,7 +7,8 @@ import { toast } from "sonner";
 import { ActionButton, Chip, Row, StatTile } from "@/components/os/ui";
 import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
-import { getWallet, requestPayout, topUpWallet } from "@/lib/wallet.functions";
+import { startPaypalTopUp } from "@/lib/paypal.functions";
+import { getWallet, requestPayout } from "@/lib/wallet.functions";
 
 const money = (v: number) => `${v < 0 ? "-" : ""}$ ${Math.abs(v).toFixed(2)}`;
 
