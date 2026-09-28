@@ -119,11 +119,11 @@ function CheckoutPage() {
   const total = card.price * (1 + commission);
   const methods: { id: PayMethod; labelPt: string; labelEn: string }[] = [
     { id: "wallet", labelPt: "Saldo da carteira", labelEn: "Wallet balance" },
-    ...PAYMENT_METHODS.map((m) => ({
-      id: m.id as PayMethod,
-      labelPt: m.labelPt,
-      labelEn: m.labelEn,
-    })),
+    {
+      id: "paypal",
+      labelPt: "PayPal (ou cartão via PayPal)",
+      labelEn: "PayPal (or card via PayPal)",
+    },
   ];
 
   return (
