@@ -105,13 +105,18 @@ export function WalletFull() {
   });
 
   const topUp = useMutation({
-    mutationFn: () => topUpFn({ data: { amount: 50 } }),
-    onSuccess: () => {
-      toast.success(lang === "pt" ? "Recarga simulada de $ 50.00" : "Simulated $ 50.00 top-up");
-      refresh();
+    mutationFn: async () => {
+      const value = Number(amount) || 50;
+      const paypal = await topUpFn({ data: { amount: value, origin: window.location.origin } });
+      window.location.href = paypal.approveUrl;
+      return paypal;
     },
     onError: () =>
-      toast.error(lang === "pt" ? "Falha na recarga" : "Top-up failed"),
+      toast.error(
+        lang === "pt"
+          ? "Não foi possível abrir o PayPal para a recarga"
+          : "Could not open PayPal for the top-up",
+      ),
   });
 
   if (!userId) {
