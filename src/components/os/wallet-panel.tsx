@@ -204,7 +204,13 @@ export function WalletFull() {
                   : "Request payout"}
             </ActionButton>
             <ActionButton variant="ghost" onClick={() => topUp.mutate()}>
-              {lang === "pt" ? "Recarregar $ 50" : "Top up $ 50"}
+              {topUp.isPending
+                ? lang === "pt"
+                  ? "A abrir o PayPal..."
+                  : "Opening PayPal..."
+                : lang === "pt"
+                  ? "Recarregar com PayPal"
+                  : "Top up with PayPal"}
             </ActionButton>
           </div>
           <p className="text-[10px] text-muted-foreground">
