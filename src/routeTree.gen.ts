@@ -17,6 +17,7 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as JogosRouteImport } from './routes/jogos'
 import { Route as ModosRouteImport } from './routes/modos'
 import { Route as NotificacoesRouteImport } from './routes/notificacoes'
+import { Route as PagamentoRouteImport } from './routes/pagamento'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -60,6 +61,11 @@ const NotificacoesRoute = NotificacoesRouteImport.update({
   path: '/notificacoes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PagamentoRoute = PagamentoRouteImport.update({
+  id: '/pagamento',
+  path: '/pagamento',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PerfilRoute = PerfilRouteImport.update({
   id: '/perfil',
   path: '/perfil',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/jogos': typeof JogosRoute
   '/modos': typeof ModosRoute
   '/notificacoes': typeof NotificacoesRoute
+  '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/jogos': typeof JogosRoute
   '/modos': typeof ModosRoute
   '/notificacoes': typeof NotificacoesRoute
+  '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/jogos': typeof JogosRoute
   '/modos': typeof ModosRoute
   '/notificacoes': typeof NotificacoesRoute
+  '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/jogos'
     | '/modos'
     | '/notificacoes'
+    | '/pagamento'
     | '/perfil'
     | '/admin'
     | '/api/public/payments/webhook'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/jogos'
     | '/modos'
     | '/notificacoes'
+    | '/pagamento'
     | '/perfil'
     | '/admin'
     | '/api/public/payments/webhook'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/jogos'
     | '/modos'
     | '/notificacoes'
+    | '/pagamento'
     | '/perfil'
     | '/_authenticated/admin'
     | '/api/public/payments/webhook'
@@ -164,6 +176,7 @@ export interface RootRouteChildren {
   JogosRoute: typeof JogosRoute
   ModosRoute: typeof ModosRoute
   NotificacoesRoute: typeof NotificacoesRoute
+  PagamentoRoute: typeof PagamentoRoute
   PerfilRoute: typeof PerfilRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
@@ -226,6 +239,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pagamento': {
+      id: '/pagamento'
+      path: '/pagamento'
+      fullPath: '/pagamento'
+      preLoaderRoute: typeof PagamentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/perfil': {
       id: '/perfil'
       path: '/perfil'
@@ -270,6 +290,7 @@ const rootRouteChildren: RootRouteChildren = {
   JogosRoute: JogosRoute,
   ModosRoute: ModosRoute,
   NotificacoesRoute: NotificacoesRoute,
+  PagamentoRoute: PagamentoRoute,
   PerfilRoute: PerfilRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }

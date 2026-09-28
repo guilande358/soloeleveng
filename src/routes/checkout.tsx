@@ -59,14 +59,25 @@ function CheckoutPage() {
 
   const checkoutFn = useServerFn(createCheckout);
   const confirmFn = useServerFn(confirmPayment);
+  const paypalFn = useServerFn(startPaypalPayment);
 
   const pay = useMutation({
     mutationFn: async () => {
       if (!card) throw new Error("no_card");
       const intent = await checkoutFn({ data: { cardId: card.id, mode, method } });
-      return confirmFn({ data: { reference: intent.reference } });
+
+      if (method === "wallet") {
+        return confirmFn({ data: { reference: intent.reference } });
+      }
+
+      const paypal = await paypalFn({
+        data: { reference: intent.reference, origin: window.location.origin },
+      });
+      window.location.href = paypal.approveUrl;
+      return { redirected: true };
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
+      if (result && "redirected" in result) return;
       toast.success(lang === "pt" ? "Pagamento confirmado" : "Payment confirmed");
       void queryClient.invalidateQueries({ queryKey: ["wallet"] });
       void queryClient.invalidateQueries({ queryKey: ["orders"] });
@@ -79,9 +90,13 @@ function CheckoutPage() {
           ? lang === "pt"
             ? "Saldo insuficiente — recarregue a carteira."
             : "Insufficient balance — top up your wallet."
-          : lang === "pt"
-            ? "Não foi possível concluir o pagamento"
-            : "Could not complete the payment",
+          : error.message.includes("paypal")
+            ? lang === "pt"
+              ? "O PayPal não aceitou este pagamento. Tente de novo."
+              : "PayPal did not accept this payment. Please try again."
+            : lang === "pt"
+              ? "Não foi possível concluir o pagamento"
+              : "Could not complete the payment",
       );
     },
   });
