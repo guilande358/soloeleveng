@@ -70,7 +70,7 @@ export function WalletFull() {
   const { data, isLoading } = useWalletQuery(Boolean(userId));
 
   const payoutFn = useServerFn(requestPayout);
-  const topUpFn = useServerFn(topUpWallet);
+  const topUpFn = useServerFn(startPaypalTopUp);
   const [amount, setAmount] = useState("25");
   const [method, setMethod] = useState<"pix" | "mpesa" | "paypal" | "crypto" | "bank">("mpesa");
   const [destination, setDestination] = useState("");
