@@ -6,10 +6,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { HudPanel } from "@/components/hud/hud-panel";
-import { PAYMENT_METHODS } from "@/data/game";
 import { resolveCards } from "@/lib/card-map";
 import { listCards } from "@/lib/cards.functions";
 import { confirmPayment, createCheckout } from "@/lib/orders.functions";
+import { startPaypalPayment } from "@/lib/paypal.functions";
 import { getWallet } from "@/lib/wallet.functions";
 import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
@@ -59,14 +59,25 @@ function CheckoutPage() {
 
   const checkoutFn = useServerFn(createCheckout);
   const confirmFn = useServerFn(confirmPayment);
+  const paypalFn = useServerFn(startPaypalPayment);
 
   const pay = useMutation({
     mutationFn: async () => {
       if (!card) throw new Error("no_card");
       const intent = await checkoutFn({ data: { cardId: card.id, mode, method } });
-      return confirmFn({ data: { reference: intent.reference } });
+
+      if (method === "wallet") {
+        return confirmFn({ data: { reference: intent.reference } });
+      }
+
+      const paypal = await paypalFn({
+        data: { reference: intent.reference, origin: window.location.origin },
+      });
+      window.location.href = paypal.approveUrl;
+      return { redirected: true };
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
+      if (result && "redirected" in result) return;
       toast.success(lang === "pt" ? "Pagamento confirmado" : "Payment confirmed");
       void queryClient.invalidateQueries({ queryKey: ["wallet"] });
       void queryClient.invalidateQueries({ queryKey: ["orders"] });
@@ -79,9 +90,13 @@ function CheckoutPage() {
           ? lang === "pt"
             ? "Saldo insuficiente — recarregue a carteira."
             : "Insufficient balance — top up your wallet."
-          : lang === "pt"
-            ? "Não foi possível concluir o pagamento"
-            : "Could not complete the payment",
+          : error.message.includes("paypal")
+            ? lang === "pt"
+              ? "O PayPal não aceitou este pagamento. Tente de novo."
+              : "PayPal did not accept this payment. Please try again."
+            : lang === "pt"
+              ? "Não foi possível concluir o pagamento"
+              : "Could not complete the payment",
       );
     },
   });
@@ -104,11 +119,11 @@ function CheckoutPage() {
   const total = card.price * (1 + commission);
   const methods: { id: PayMethod; labelPt: string; labelEn: string }[] = [
     { id: "wallet", labelPt: "Saldo da carteira", labelEn: "Wallet balance" },
-    ...PAYMENT_METHODS.map((m) => ({
-      id: m.id as PayMethod,
-      labelPt: m.labelPt,
-      labelEn: m.labelEn,
-    })),
+    {
+      id: "paypal",
+      labelPt: "PayPal (ou cartão via PayPal)",
+      labelEn: "PayPal (or card via PayPal)",
+    },
   ];
 
   return (

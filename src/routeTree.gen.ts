@@ -17,9 +17,11 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as JogosRouteImport } from './routes/jogos'
 import { Route as ModosRouteImport } from './routes/modos'
 import { Route as NotificacoesRouteImport } from './routes/notificacoes'
+import { Route as PagamentoRouteImport } from './routes/pagamento'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicPaypalSelftestRouteImport } from './routes/api/public/paypal/selftest'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -60,6 +62,11 @@ const NotificacoesRoute = NotificacoesRouteImport.update({
   path: '/notificacoes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PagamentoRoute = PagamentoRouteImport.update({
+  id: '/pagamento',
+  path: '/pagamento',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PerfilRoute = PerfilRouteImport.update({
   id: '/perfil',
   path: '/perfil',
@@ -76,6 +83,11 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPaypalSelftestRoute = ApiPublicPaypalSelftestRouteImport.update({
+  id: '/api/public/paypal/selftest',
+  path: '/api/public/paypal/selftest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -85,9 +97,11 @@ export interface FileRoutesByFullPath {
   '/jogos': typeof JogosRoute
   '/modos': typeof ModosRoute
   '/notificacoes': typeof NotificacoesRoute
+  '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/api/public/paypal/selftest': typeof ApiPublicPaypalSelftestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -97,9 +111,11 @@ export interface FileRoutesByTo {
   '/jogos': typeof JogosRoute
   '/modos': typeof ModosRoute
   '/notificacoes': typeof NotificacoesRoute
+  '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/api/public/paypal/selftest': typeof ApiPublicPaypalSelftestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -111,9 +127,11 @@ export interface FileRoutesById {
   '/jogos': typeof JogosRoute
   '/modos': typeof ModosRoute
   '/notificacoes': typeof NotificacoesRoute
+  '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/api/public/paypal/selftest': typeof ApiPublicPaypalSelftestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -125,9 +143,11 @@ export interface FileRouteTypes {
     | '/jogos'
     | '/modos'
     | '/notificacoes'
+    | '/pagamento'
     | '/perfil'
     | '/admin'
     | '/api/public/payments/webhook'
+    | '/api/public/paypal/selftest'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -137,9 +157,11 @@ export interface FileRouteTypes {
     | '/jogos'
     | '/modos'
     | '/notificacoes'
+    | '/pagamento'
     | '/perfil'
     | '/admin'
     | '/api/public/payments/webhook'
+    | '/api/public/paypal/selftest'
   id:
     | '__root__'
     | '/'
@@ -150,9 +172,11 @@ export interface FileRouteTypes {
     | '/jogos'
     | '/modos'
     | '/notificacoes'
+    | '/pagamento'
     | '/perfil'
     | '/_authenticated/admin'
     | '/api/public/payments/webhook'
+    | '/api/public/paypal/selftest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,8 +188,10 @@ export interface RootRouteChildren {
   JogosRoute: typeof JogosRoute
   ModosRoute: typeof ModosRoute
   NotificacoesRoute: typeof NotificacoesRoute
+  PagamentoRoute: typeof PagamentoRoute
   PerfilRoute: typeof PerfilRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
+  ApiPublicPaypalSelftestRoute: typeof ApiPublicPaypalSelftestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -226,6 +252,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotificacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pagamento': {
+      id: '/pagamento'
+      path: '/pagamento'
+      fullPath: '/pagamento'
+      preLoaderRoute: typeof PagamentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/perfil': {
       id: '/perfil'
       path: '/perfil'
@@ -245,6 +278,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/payments/webhook'
       fullPath: '/api/public/payments/webhook'
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/paypal/selftest': {
+      id: '/api/public/paypal/selftest'
+      path: '/api/public/paypal/selftest'
+      fullPath: '/api/public/paypal/selftest'
+      preLoaderRoute: typeof ApiPublicPaypalSelftestRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -270,8 +310,10 @@ const rootRouteChildren: RootRouteChildren = {
   JogosRoute: JogosRoute,
   ModosRoute: ModosRoute,
   NotificacoesRoute: NotificacoesRoute,
+  PagamentoRoute: PagamentoRoute,
   PerfilRoute: PerfilRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
+  ApiPublicPaypalSelftestRoute: ApiPublicPaypalSelftestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

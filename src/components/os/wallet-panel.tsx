@@ -7,7 +7,8 @@ import { toast } from "sonner";
 import { ActionButton, Chip, Row, StatTile } from "@/components/os/ui";
 import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
-import { getWallet, requestPayout, topUpWallet } from "@/lib/wallet.functions";
+import { startPaypalTopUp } from "@/lib/paypal.functions";
+import { getWallet, requestPayout } from "@/lib/wallet.functions";
 
 const money = (v: number) => `${v < 0 ? "-" : ""}$ ${Math.abs(v).toFixed(2)}`;
 
@@ -69,7 +70,7 @@ export function WalletFull() {
   const { data, isLoading } = useWalletQuery(Boolean(userId));
 
   const payoutFn = useServerFn(requestPayout);
-  const topUpFn = useServerFn(topUpWallet);
+  const topUpFn = useServerFn(startPaypalTopUp);
   const [amount, setAmount] = useState("25");
   const [method, setMethod] = useState<"pix" | "mpesa" | "paypal" | "crypto" | "bank">("mpesa");
   const [destination, setDestination] = useState("");
@@ -105,13 +106,18 @@ export function WalletFull() {
   });
 
   const topUp = useMutation({
-    mutationFn: () => topUpFn({ data: { amount: 50 } }),
-    onSuccess: () => {
-      toast.success(lang === "pt" ? "Recarga simulada de $ 50.00" : "Simulated $ 50.00 top-up");
-      refresh();
+    mutationFn: async () => {
+      const value = Number(amount) || 50;
+      const paypal = await topUpFn({ data: { amount: value, origin: window.location.origin } });
+      window.location.href = paypal.approveUrl;
+      return paypal;
     },
     onError: () =>
-      toast.error(lang === "pt" ? "Falha na recarga" : "Top-up failed"),
+      toast.error(
+        lang === "pt"
+          ? "Não foi possível abrir o PayPal para a recarga"
+          : "Could not open PayPal for the top-up",
+      ),
   });
 
   if (!userId) {
@@ -199,7 +205,13 @@ export function WalletFull() {
                   : "Request payout"}
             </ActionButton>
             <ActionButton variant="ghost" onClick={() => topUp.mutate()}>
-              {lang === "pt" ? "Recarregar $ 50" : "Top up $ 50"}
+              {topUp.isPending
+                ? lang === "pt"
+                  ? "A abrir o PayPal..."
+                  : "Opening PayPal..."
+                : lang === "pt"
+                  ? "Recarregar com PayPal"
+                  : "Top up with PayPal"}
             </ActionButton>
           </div>
           <p className="text-[10px] text-muted-foreground">
