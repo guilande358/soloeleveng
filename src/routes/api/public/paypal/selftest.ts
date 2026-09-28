@@ -1,26 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-/** Temporary connectivity check: confirms the PayPal credentials authenticate. */
+/** Temporary connectivity check: reports which PayPal environment accepts the credentials. */
 export const Route = createFileRoute("/api/public/paypal/selftest")({
   server: {
     handlers: {
       GET: async () => {
-        try {
-          const { createPaypalOrder } = await import("@/lib/paypal.server");
-          const order = await createPaypalOrder({
-            amount: 1,
-            reference: "SELFTEST",
-            description: "Connectivity check",
-            returnUrl: "https://example.com/return",
-            cancelUrl: "https://example.com/cancel",
-          });
-          return Response.json({ ok: true, hasApproveUrl: Boolean(order.approveUrl) });
-        } catch (error) {
-          return Response.json(
-            { ok: false, reason: error instanceof Error ? error.message : "unknown" },
-            { status: 200 },
-          );
+        const id = process.env["PAYPAL_CLIENT_ID"] ?? "";
+        const secret = process.env["PAYPAL_CLIENT_SECRET"] ?? "";
+        const results: Record<string, unknown> = {
+          hasId: id.length > 0,
+          idLength: id.length,
+          secretLength: secret.length,
+        };
+
+        for (const [name, host] of [
+          ["sandbox", "https://api-m.sandbox.paypal.com"],
+          ["live", "https://api-m.paypal.com"],
+        ] as const) {
+          try {
+            const res = await fetch(`${host}/v1/oauth2/token`, {
+              method: "POST",
+              headers: {
+                Authorization: `Basic ${Buffer.from(`${id}:${secret}`).toString("base64")}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: "grant_type=client_credentials",
+            });
+            results[name] = res.status;
+          } catch {
+            results[name] = "network_error";
+          }
         }
+
+        return Response.json(results);
       },
     },
   },
