@@ -6,10 +6,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { HudPanel } from "@/components/hud/hud-panel";
-import { PAYMENT_METHODS } from "@/data/game";
 import { resolveCards } from "@/lib/card-map";
 import { listCards } from "@/lib/cards.functions";
 import { confirmPayment, createCheckout } from "@/lib/orders.functions";
+import { startPaypalPayment } from "@/lib/paypal.functions";
 import { getWallet } from "@/lib/wallet.functions";
 import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
