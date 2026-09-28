@@ -21,7 +21,6 @@ import { Route as PagamentoRouteImport } from './routes/pagamento'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
-import { Route as ApiPublicPaypalSelftestRouteImport } from './routes/api/public/paypal/selftest'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -83,11 +82,6 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicPaypalSelftestRoute = ApiPublicPaypalSelftestRouteImport.update({
-  id: '/api/public/paypal/selftest',
-  path: '/api/public/paypal/selftest',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -101,7 +95,6 @@ export interface FileRoutesByFullPath {
   '/perfil': typeof PerfilRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
-  '/api/public/paypal/selftest': typeof ApiPublicPaypalSelftestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -115,7 +108,6 @@ export interface FileRoutesByTo {
   '/perfil': typeof PerfilRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
-  '/api/public/paypal/selftest': typeof ApiPublicPaypalSelftestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,7 +123,6 @@ export interface FileRoutesById {
   '/perfil': typeof PerfilRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
-  '/api/public/paypal/selftest': typeof ApiPublicPaypalSelftestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -147,7 +138,6 @@ export interface FileRouteTypes {
     | '/perfil'
     | '/admin'
     | '/api/public/payments/webhook'
-    | '/api/public/paypal/selftest'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -161,7 +151,6 @@ export interface FileRouteTypes {
     | '/perfil'
     | '/admin'
     | '/api/public/payments/webhook'
-    | '/api/public/paypal/selftest'
   id:
     | '__root__'
     | '/'
@@ -176,7 +165,6 @@ export interface FileRouteTypes {
     | '/perfil'
     | '/_authenticated/admin'
     | '/api/public/payments/webhook'
-    | '/api/public/paypal/selftest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,7 +179,6 @@ export interface RootRouteChildren {
   PagamentoRoute: typeof PagamentoRoute
   PerfilRoute: typeof PerfilRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
-  ApiPublicPaypalSelftestRoute: typeof ApiPublicPaypalSelftestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -280,13 +267,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/paypal/selftest': {
-      id: '/api/public/paypal/selftest'
-      path: '/api/public/paypal/selftest'
-      fullPath: '/api/public/paypal/selftest'
-      preLoaderRoute: typeof ApiPublicPaypalSelftestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -313,7 +293,6 @@ const rootRouteChildren: RootRouteChildren = {
   PagamentoRoute: PagamentoRoute,
   PerfilRoute: PerfilRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
-  ApiPublicPaypalSelftestRoute: ApiPublicPaypalSelftestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
