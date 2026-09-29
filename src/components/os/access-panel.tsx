@@ -86,26 +86,8 @@ export function AccessFull() {
   const { data: links, isLoading } = useQuery({
     queryKey: ["access-links"],
     queryFn: () => fetchLinks(),
+    enabled: Boolean(userId),
   });
-
-  if (!userId) {
-    return (
-      <div className="space-y-4 text-center">
-        <p className="text-[11px] text-muted-foreground">
-          {lang === "pt"
-            ? "Inicie sessão para gerar links cifrados de acesso às tuas contas de jogo."
-            : "Sign in to generate encrypted access links for your game accounts."}
-        </p>
-        <Link
-          to="/auth"
-          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 font-display text-[11px] tracking-[0.16em] text-primary-foreground uppercase"
-        >
-          <LogIn className="h-3.5 w-3.5" />
-          {t("nav.auth")}
-        </Link>
-      </div>
-    );
-  }
 
   const create = useMutation({
     mutationFn: () => createFn({ data: { game: selected?.name ?? game, minutes: 15 } }),
@@ -127,8 +109,30 @@ export function AccessFull() {
 
   const sorted = useMemo(() => {
     const base = links ?? [];
-    return [...base].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    return [...base].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
   }, [links]);
+
+  if (!userId) {
+    return (
+      <div className="space-y-4 text-center">
+        <p className="text-[11px] text-muted-foreground">
+          {lang === "pt"
+            ? "Inicie sessão para gerar links cifrados de acesso às tuas contas de jogo."
+            : "Sign in to generate encrypted access links for your game accounts."}
+        </p>
+        <Link
+          to="/auth"
+          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 font-display text-[11px] tracking-[0.16em] text-primary-foreground uppercase"
+        >
+          <LogIn className="h-3.5 w-3.5" />
+          {t("nav.auth")}
+        </Link>
+      </div>
+    );
+  }
+
 
   return (
     <div className="space-y-4">
