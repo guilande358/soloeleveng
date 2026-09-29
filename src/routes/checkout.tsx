@@ -117,7 +117,8 @@ function CheckoutPage() {
     );
   }
 
-  const commission = mode === "pro" ? 0.2 : 0;
+  const isFree = card.price <= 0;
+  const commission = isFree ? 0 : mode === "pro" ? 0.2 : 0;
   const total = card.price * (1 + commission);
   const methods: { id: PayMethod; labelPt: string; labelEn: string }[] = [
     { id: "wallet", labelPt: "Saldo da carteira", labelEn: "Wallet balance" },
