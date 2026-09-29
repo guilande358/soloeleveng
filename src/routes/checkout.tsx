@@ -64,9 +64,11 @@ function CheckoutPage() {
   const pay = useMutation({
     mutationFn: async () => {
       if (!card) throw new Error("no_card");
-      const intent = await checkoutFn({ data: { cardId: card.id, mode, method } });
+      const free = card.price <= 0;
+      const chosen = free ? "wallet" : method;
+      const intent = await checkoutFn({ data: { cardId: card.id, mode, method: chosen } });
 
-      if (method === "wallet") {
+      if (chosen === "wallet") {
         return confirmFn({ data: { reference: intent.reference } });
       }
 
