@@ -19,6 +19,21 @@ export type GameCard = {
 /** Support network: LLM training for games exists for these tiers, the rest use addicted pro players. */
 export const CARDS: GameCard[] = [
   {
+    id: "starter",
+    name: "Starter",
+    rarity: "iron",
+    glow: "var(--neon-green)",
+    price: 0,
+    currentRank: "Unranked",
+    targetRank: "Iron IV",
+    medals: 4,
+    days: "1 - 2",
+    success: 99,
+    support: "llm",
+    players: 6,
+    matches: "5 - 10",
+  },
+  {
     id: "iron",
     name: "Iron",
     rarity: "iron",

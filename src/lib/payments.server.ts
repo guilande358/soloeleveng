@@ -57,7 +57,16 @@ export async function settlePayment(reference: string): Promise<SettleResult> {
   const commission = Number(intent.commission);
   const total = Number(intent.total);
 
-  if (intent.method === "wallet") {
+  if (total <= 0) {
+    // Free starter card: nothing to charge, just log the activation.
+    await supabaseAdmin.from("wallet_transactions").insert({
+      user_id: intent.user_id,
+      kind: "purchase",
+      amount: 0,
+      description: `Carta ${intent.card_id} (gratuita)`,
+      metadata: { reference, free: true },
+    });
+  } else if (intent.method === "wallet") {
     const { error: debitError } = await supabaseAdmin.rpc("apply_wallet_delta", {
       _user_id: intent.user_id,
       _kind: "purchase",

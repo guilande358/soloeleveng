@@ -64,9 +64,11 @@ function CheckoutPage() {
   const pay = useMutation({
     mutationFn: async () => {
       if (!card) throw new Error("no_card");
-      const intent = await checkoutFn({ data: { cardId: card.id, mode, method } });
+      const free = card.price <= 0;
+      const chosen = free ? "wallet" : method;
+      const intent = await checkoutFn({ data: { cardId: card.id, mode, method: chosen } });
 
-      if (method === "wallet") {
+      if (chosen === "wallet") {
         return confirmFn({ data: { reference: intent.reference } });
       }
 
@@ -115,7 +117,8 @@ function CheckoutPage() {
     );
   }
 
-  const commission = mode === "pro" ? 0.2 : 0;
+  const isFree = card.price <= 0;
+  const commission = isFree ? 0 : mode === "pro" ? 0.2 : 0;
   const total = card.price * (1 + commission);
   const methods: { id: PayMethod; labelPt: string; labelEn: string }[] = [
     { id: "wallet", labelPt: "Saldo da carteira", labelEn: "Wallet balance" },
@@ -168,31 +171,43 @@ function CheckoutPage() {
         </div>
       </HudPanel>
 
-      <HudPanel title={t("checkout.method")}>
-        <ul className="space-y-2">
-          {methods.map((m) => (
-            <li key={m.id}>
-              <button
-                type="button"
-                onClick={() => setMethod(m.id)}
-                className={cn(
-                  "flex w-full items-center gap-3 rounded-lg border p-3 text-left text-xs transition-colors",
-                  method === m.id
-                    ? "border-primary bg-primary/15"
-                    : "border-border/60 bg-surface-2/50",
-                )}
-              >
-                <span
+      <HudPanel
+        title={
+          isFree ? (lang === "pt" ? "Ativação gratuita" : "Free activation") : t("checkout.method")
+        }
+      >
+        {isFree ? (
+          <p className="text-[11px] text-muted-foreground">
+            {lang === "pt"
+              ? "Esta carta é gratuita: ative agora e comece a registrar partidas para subir de nível e range."
+              : "This card is free: activate now and start logging matches to raise your level and rank."}
+          </p>
+        ) : (
+          <ul className="space-y-2">
+            {methods.map((m) => (
+              <li key={m.id}>
+                <button
+                  type="button"
+                  onClick={() => setMethod(m.id)}
                   className={cn(
-                    "h-3 w-3 rounded-full border",
-                    method === m.id ? "border-primary bg-primary" : "border-muted-foreground",
+                    "flex w-full items-center gap-3 rounded-lg border p-3 text-left text-xs transition-colors",
+                    method === m.id
+                      ? "border-primary bg-primary/15"
+                      : "border-border/60 bg-surface-2/50",
                   )}
-                />
-                {lang === "pt" ? m.labelPt : m.labelEn}
-              </button>
-            </li>
-          ))}
-        </ul>
+                >
+                  <span
+                    className={cn(
+                      "h-3 w-3 rounded-full border",
+                      method === m.id ? "border-primary bg-primary" : "border-muted-foreground",
+                    )}
+                  />
+                  {lang === "pt" ? m.labelPt : m.labelEn}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {userId ? (
           <button
@@ -201,12 +216,16 @@ function CheckoutPage() {
             disabled={pay.isPending}
             className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 font-display text-sm tracking-[0.16em] text-primary-foreground uppercase disabled:opacity-60"
           >
-            <Lock className="h-4 w-4" />
+            {isFree ? <Sparkles className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
             {pay.isPending
               ? lang === "pt"
                 ? "A processar..."
                 : "Processing..."
-              : t("checkout.pay")}
+              : isFree
+                ? lang === "pt"
+                  ? "Ativar carta gratuita"
+                  : "Activate free card"
+                : t("checkout.pay")}
           </button>
         ) : (
           <Link
@@ -217,10 +236,15 @@ function CheckoutPage() {
           </Link>
         )}
         <p className="mt-2 text-center text-[11px] text-muted-foreground">
-          {lang === "pt"
-            ? "Pagamento processado pelo provedor interno Seev com liquidação assinada."
-            : "Processed by the internal Seev provider with signed settlement."}
+          {isFree
+            ? lang === "pt"
+              ? "Sem cobrança: nenhum valor é debitado da sua carteira."
+              : "No charge: nothing is debited from your wallet."
+            : lang === "pt"
+              ? "Pagamento processado pelo provedor interno Seev com liquidação assinada."
+              : "Processed by the internal Seev provider with signed settlement."}
         </p>
+
         <p className="mt-1 text-center text-[10px] tracking-wider text-muted-foreground uppercase">
           {t("checkout.secure")}
         </p>
