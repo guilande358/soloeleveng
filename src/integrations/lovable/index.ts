@@ -11,7 +11,10 @@ type SignInOptions = {
 
 export const lovable = {
   auth: {
-    signInWithOAuth: async (provider: "google" | "apple" | "microsoft" | "lovable", opts?: SignInOptions) => {
+    signInWithOAuth: async (
+      provider: "google" | "apple" | "microsoft" | "lovable",
+      opts?: SignInOptions,
+    ) => {
       const options: { redirect_uri?: string; extraParams?: Record<string, string> } = {};
       if (opts?.redirect_uri) options.redirect_uri = opts.redirect_uri;
       if (opts?.extraParams) options.extraParams = opts.extraParams;

@@ -73,7 +73,6 @@ export const updateContractProgress = createServerFn({ method: "POST" })
     if (data.medals !== undefined) patch.medals = data.medals;
     if (data.matches !== undefined) patch.matches = data.matches;
 
-
     await supabaseAdmin.from("contract_progress").update(patch).eq("contract_id", contract.id);
 
     if (data.percent >= 100 && contract.status === "active") {

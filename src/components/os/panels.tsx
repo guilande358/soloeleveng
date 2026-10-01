@@ -59,15 +59,9 @@ export type PanelDef = {
 
 /* ── 1. IA Highlights ─────────────────────────────────────────────────── */
 
-
-
 /* ── 2. Lives ─────────────────────────────────────────────────────────── */
 
-
-
 /* ── 3. Minha Carta ───────────────────────────────────────────────────── */
-
-
 
 /* ── 4. Guilda ────────────────────────────────────────────────────────── */
 
@@ -100,7 +94,11 @@ function GuildFull() {
         <Row label="Ranking" value={GUILD.rank} glow="var(--neon-gold)" />
         <Row label="XP" value={`${GUILD.xp} / ${GUILD.xpMax}`} />
         <Row label={lang === "pt" ? "Membros" : "Members"} value={GUILD.members} />
-        <Row label={lang === "pt" ? "Online" : "Online"} value={GUILD.online} glow="var(--neon-green)" />
+        <Row
+          label={lang === "pt" ? "Online" : "Online"}
+          value={GUILD.online}
+          glow="var(--neon-green)"
+        />
         <div className="pt-2">
           <p className="mb-1.5 font-display text-[11px] tracking-[0.18em] uppercase">
             {lang === "pt" ? "Eventos" : "Events"}
@@ -128,8 +126,6 @@ function GuildFull() {
 /* ── 5. Acessos ───────────────────────────────────────────────────────── */
 
 /* ── 6. Contratos ─────────────────────────────────────────────────────── */
-
-
 
 /* ── 7. Amigos ────────────────────────────────────────────────────────── */
 
@@ -259,7 +255,9 @@ function ProfileFull() {
           <Avatar name={profile.name} glow={profile.accent} size="lg" />
           <div>
             <p className="font-display text-sm">{profile.name}</p>
-            <p className="text-[10px] tracking-wider text-muted-foreground uppercase">{profile.title}</p>
+            <p className="text-[10px] tracking-wider text-muted-foreground uppercase">
+              {profile.title}
+            </p>
           </div>
         </div>
       </div>
@@ -333,21 +331,141 @@ export const PANELS: PanelDef[] = [
     Widget: HighlightsWidget,
     Full: HighlightsFull,
   },
-  { id: "lives", title: { pt: "Lives dos amigos", en: "Friends live" }, Icon: Radio, glow: "var(--neon-cyan)", span: "", Widget: LivesWidget, Full: LivesFull },
-  { id: "card", title: { pt: "Minha carta", en: "My card" }, Icon: Sparkles, glow: "var(--rarity-diamond)", span: "", Widget: MyCardWidget, Full: MyCardFull },
-  { id: "guild", title: { pt: "Guilda", en: "Guild" }, Icon: Trophy, glow: "var(--neon-gold)", span: "", Widget: GuildWidget, Full: GuildFull },
-  { id: "access", title: { pt: "Acessos", en: "Access" }, Icon: KeyRound, glow: "var(--neon-green)", span: "", Widget: AccessWidget, Full: AccessFull },
-  { id: "contracts", title: { pt: "Contratos", en: "Contracts" }, Icon: Gamepad2, glow: "var(--neon)", span: "", Widget: ContractsWidget, Full: ContractsFull },
-  { id: "friends", title: { pt: "Amigos", en: "Friends" }, Icon: Users, glow: "var(--neon-cyan)", span: "", Widget: FriendsWidget, Full: FriendsFull },
-  { id: "missions", title: { pt: "Missões", en: "Missions" }, Icon: Target, glow: "var(--neon-green)", span: "", Widget: MissionsWidget, Full: MissionsFull },
-  { id: "wallet", title: { pt: "Carteira", en: "Wallet" }, Icon: Wallet, glow: "var(--neon-gold)", span: "", Widget: WalletWidget, Full: WalletFull },
-  { id: "stats", title: { pt: "Estatísticas", en: "Statistics" }, Icon: CreditCard, glow: "var(--neon-cyan)", span: "", Widget: StatsWidget, Full: StatsFull },
-  { id: "notifications", title: { pt: "Notificações", en: "Notifications" }, Icon: Bell, glow: "var(--neon-pink)", span: "", Widget: NotificationsWidget, Full: NotificationsFull },
-  { id: "events", title: { pt: "Eventos", en: "Events" }, Icon: CalendarDays, glow: "var(--neon-gold)", span: "", Widget: EventsWidget, Full: EventsFull },
-  { id: "replays", title: { pt: "Replays", en: "Replays" }, Icon: Film, glow: "var(--neon-pink)", span: "", Widget: ReplaysWidget, Full: ReplaysFull },
-  { id: "market", title: { pt: "Marketplace", en: "Marketplace" }, Icon: Store, glow: "var(--neon)", span: "", Widget: MarketWidget, Full: MarketFull },
-  { id: "profile", title: { pt: "Perfil", en: "Profile" }, Icon: UserRound, glow: "var(--neon)", span: "", Widget: ProfileWidget, Full: ProfileFull },
-  { id: "settings", title: { pt: "Configurações", en: "Settings" }, Icon: Settings, glow: "var(--neon-cyan)", span: "", Widget: SettingsWidget, Full: SettingsFull },
+  {
+    id: "lives",
+    title: { pt: "Lives dos amigos", en: "Friends live" },
+    Icon: Radio,
+    glow: "var(--neon-cyan)",
+    span: "",
+    Widget: LivesWidget,
+    Full: LivesFull,
+  },
+  {
+    id: "card",
+    title: { pt: "Minha carta", en: "My card" },
+    Icon: Sparkles,
+    glow: "var(--rarity-diamond)",
+    span: "",
+    Widget: MyCardWidget,
+    Full: MyCardFull,
+  },
+  {
+    id: "guild",
+    title: { pt: "Guilda", en: "Guild" },
+    Icon: Trophy,
+    glow: "var(--neon-gold)",
+    span: "",
+    Widget: GuildWidget,
+    Full: GuildFull,
+  },
+  {
+    id: "access",
+    title: { pt: "Acessos", en: "Access" },
+    Icon: KeyRound,
+    glow: "var(--neon-green)",
+    span: "",
+    Widget: AccessWidget,
+    Full: AccessFull,
+  },
+  {
+    id: "contracts",
+    title: { pt: "Contratos", en: "Contracts" },
+    Icon: Gamepad2,
+    glow: "var(--neon)",
+    span: "",
+    Widget: ContractsWidget,
+    Full: ContractsFull,
+  },
+  {
+    id: "friends",
+    title: { pt: "Amigos", en: "Friends" },
+    Icon: Users,
+    glow: "var(--neon-cyan)",
+    span: "",
+    Widget: FriendsWidget,
+    Full: FriendsFull,
+  },
+  {
+    id: "missions",
+    title: { pt: "Missões", en: "Missions" },
+    Icon: Target,
+    glow: "var(--neon-green)",
+    span: "",
+    Widget: MissionsWidget,
+    Full: MissionsFull,
+  },
+  {
+    id: "wallet",
+    title: { pt: "Carteira", en: "Wallet" },
+    Icon: Wallet,
+    glow: "var(--neon-gold)",
+    span: "",
+    Widget: WalletWidget,
+    Full: WalletFull,
+  },
+  {
+    id: "stats",
+    title: { pt: "Estatísticas", en: "Statistics" },
+    Icon: CreditCard,
+    glow: "var(--neon-cyan)",
+    span: "",
+    Widget: StatsWidget,
+    Full: StatsFull,
+  },
+  {
+    id: "notifications",
+    title: { pt: "Notificações", en: "Notifications" },
+    Icon: Bell,
+    glow: "var(--neon-pink)",
+    span: "",
+    Widget: NotificationsWidget,
+    Full: NotificationsFull,
+  },
+  {
+    id: "events",
+    title: { pt: "Eventos", en: "Events" },
+    Icon: CalendarDays,
+    glow: "var(--neon-gold)",
+    span: "",
+    Widget: EventsWidget,
+    Full: EventsFull,
+  },
+  {
+    id: "replays",
+    title: { pt: "Replays", en: "Replays" },
+    Icon: Film,
+    glow: "var(--neon-pink)",
+    span: "",
+    Widget: ReplaysWidget,
+    Full: ReplaysFull,
+  },
+  {
+    id: "market",
+    title: { pt: "Marketplace", en: "Marketplace" },
+    Icon: Store,
+    glow: "var(--neon)",
+    span: "",
+    Widget: MarketWidget,
+    Full: MarketFull,
+  },
+  {
+    id: "profile",
+    title: { pt: "Perfil", en: "Profile" },
+    Icon: UserRound,
+    glow: "var(--neon)",
+    span: "",
+    Widget: ProfileWidget,
+    Full: ProfileFull,
+  },
+  {
+    id: "settings",
+    title: { pt: "Configurações", en: "Settings" },
+    Icon: Settings,
+    glow: "var(--neon-cyan)",
+    span: "",
+    Widget: SettingsWidget,
+    Full: SettingsFull,
+  },
 ];
 
 export { pick };

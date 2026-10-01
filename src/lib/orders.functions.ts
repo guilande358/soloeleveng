@@ -77,7 +77,8 @@ export const createCheckout = createServerFn({ method: "POST" })
     let orderId: string;
 
     if (open) {
-      if (open.status === "active" && open.card_id === data.cardId) throw new Error("already_active");
+      if (open.status === "active" && open.card_id === data.cardId)
+        throw new Error("already_active");
       const { error } = await context.supabase
         .from("orders")
         .update({ card_id: data.cardId, mode: data.mode, status: "pending_payment" })
@@ -180,10 +181,7 @@ export const cancelOrder = createServerFn({ method: "POST" })
       .update({ status: "cancelled" })
       .eq("order_id", data.orderId)
       .eq("status", "active");
-    await supabaseAdmin
-      .from("profiles")
-      .update({ active_card_id: null })
-      .eq("id", context.userId);
+    await supabaseAdmin.from("profiles").update({ active_card_id: null }).eq("id", context.userId);
 
     return { ok: true };
   });

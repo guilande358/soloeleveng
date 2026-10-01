@@ -45,7 +45,12 @@ export function AccessWidget() {
       {authorized.length > 0 ? (
         <>
           {authorized.slice(0, 3).map((l) => (
-            <Row key={l.id} label={l.game} value={fmtRemaining(l.expires_at)} glow="var(--neon-green)" />
+            <Row
+              key={l.id}
+              label={l.game}
+              value={fmtRemaining(l.expires_at)}
+              glow="var(--neon-green)"
+            />
           ))}
           <p className="text-[10px] tracking-wider text-muted-foreground uppercase">
             {lang === "pt" ? "Contas autorizadas" : "Authorized accounts"}
@@ -133,7 +138,6 @@ export function AccessFull() {
     );
   }
 
-
   return (
     <div className="space-y-4">
       <p className="text-[11px] text-muted-foreground">
@@ -174,7 +178,8 @@ export function AccessFull() {
               {lang === "pt" ? selected.protection_rules_pt : selected.protection_rules_en}
             </p>
             <p className="text-[10px] tracking-wider uppercase">
-              {lang === "pt" ? "Sessões simultâneas" : "Simultaneous sessions"}: {selected.max_sessions}
+              {lang === "pt" ? "Sessões simultâneas" : "Simultaneous sessions"}:{" "}
+              {selected.max_sessions}
             </p>
           </div>
         )}
@@ -211,7 +216,10 @@ export function AccessFull() {
                 </Chip>
               </div>
               <Row label={lang === "pt" ? "Link" : "Link"} value={`seev.link/${link.token}`} />
-              <Row label={lang === "pt" ? "Expira" : "Expires"} value={fmtRemaining(link.expires_at)} />
+              <Row
+                label={lang === "pt" ? "Expira" : "Expires"}
+                value={fmtRemaining(link.expires_at)}
+              />
               <div className="mt-2 flex gap-2">
                 <button
                   type="button"

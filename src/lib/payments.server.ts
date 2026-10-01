@@ -76,7 +76,9 @@ export async function settlePayment(reference: string): Promise<SettleResult> {
     });
     if (debitError) {
       throw new Error(
-        debitError.message.includes("insufficient_funds") ? "insufficient_funds" : debitError.message,
+        debitError.message.includes("insufficient_funds")
+          ? "insufficient_funds"
+          : debitError.message,
       );
     }
     if (commission > 0) {
@@ -141,10 +143,7 @@ export async function settlePayment(reference: string): Promise<SettleResult> {
     note: card ? `${card.current_rank} → ${card.target_rank}` : null,
   });
 
-  await supabaseAdmin
-    .from("payment_intents")
-    .update({ status: "paid" })
-    .eq("id", intent.id);
+  await supabaseAdmin.from("payment_intents").update({ status: "paid" }).eq("id", intent.id);
 
   await supabaseAdmin.from("notifications").insert({
     user_id: intent.user_id,

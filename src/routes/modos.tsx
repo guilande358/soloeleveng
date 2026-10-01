@@ -17,7 +17,10 @@ export const Route = createFileRoute("/modos")({
           "Friendly: contrato amigável e gratuito entre amigos. GamerPRO: guildas, comissão do sistema e proteção de conta.",
       },
       { property: "og:title", content: "Modos Friendly e GamerPRO" },
-      { property: "og:description", content: "Contrato amigável gratuito ou profissional com guilda." },
+      {
+        property: "og:description",
+        content: "Contrato amigável gratuito ou profissional com guilda.",
+      },
       { property: "og:url", content: "/modos" },
     ],
     links: [{ rel: "canonical", href: "/modos" }],
@@ -38,7 +41,10 @@ function ModesPage() {
         <HudPanel title={t("modes.friendly")} glow="var(--neon-green)">
           <ul className="space-y-2 text-sm">
             <Item Icon={Handshake} text={t("modes.friendly.desc")} />
-            <Item Icon={Users} text="Salas privadas: Sala dos Amigos, Treino Noturno, Ranqueada Casual" />
+            <Item
+              Icon={Users}
+              text="Salas privadas: Sala dos Amigos, Treino Noturno, Ranqueada Casual"
+            />
             <Item Icon={ShieldCheck} text="Sem comissão · 0% · acordo direto entre gamers" />
           </ul>
         </HudPanel>
@@ -46,7 +52,10 @@ function ModesPage() {
         <HudPanel title={t("modes.pro")} glow="var(--neon)">
           <ul className="space-y-2 text-sm">
             <Item Icon={Crown} text={t("modes.pro.desc")} />
-            <Item Icon={ShieldCheck} text="Proteção de conta, suporte prioritário e relatórios avançados" />
+            <Item
+              Icon={ShieldCheck}
+              text="Proteção de conta, suporte prioritário e relatórios avançados"
+            />
             <Item Icon={Users} text="Evolution Guild · 48/50 membros · ranking #15" />
           </ul>
         </HudPanel>

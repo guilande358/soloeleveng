@@ -90,7 +90,9 @@ export const sendCoffee = createServerFn({ method: "POST" })
     });
     if (debitError) {
       throw new Error(
-        debitError.message.includes("insufficient_funds") ? "insufficient_funds" : debitError.message,
+        debitError.message.includes("insufficient_funds")
+          ? "insufficient_funds"
+          : debitError.message,
       );
     }
 

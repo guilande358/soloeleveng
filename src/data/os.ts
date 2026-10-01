@@ -84,10 +84,38 @@ export type LiveStream = {
 };
 
 export const LIVES: LiveStream[] = [
-  { id: "l1", user: "ProPlayerBR", game: "Valorant", viewers: "3.2k", uptime: "01:24", hue: "var(--neon-pink)" },
-  { id: "l2", user: "ShadowKai", game: "CS2", viewers: "890", uptime: "00:42", hue: "var(--neon-cyan)" },
-  { id: "l3", user: "NovaQueen", game: "LoL", viewers: "1.7k", uptime: "02:08", hue: "var(--neon)" },
-  { id: "l4", user: "IronFox", game: "Apex", viewers: "410", uptime: "00:16", hue: "var(--neon-gold)" },
+  {
+    id: "l1",
+    user: "ProPlayerBR",
+    game: "Valorant",
+    viewers: "3.2k",
+    uptime: "01:24",
+    hue: "var(--neon-pink)",
+  },
+  {
+    id: "l2",
+    user: "ShadowKai",
+    game: "CS2",
+    viewers: "890",
+    uptime: "00:42",
+    hue: "var(--neon-cyan)",
+  },
+  {
+    id: "l3",
+    user: "NovaQueen",
+    game: "LoL",
+    viewers: "1.7k",
+    uptime: "02:08",
+    hue: "var(--neon)",
+  },
+  {
+    id: "l4",
+    user: "IronFox",
+    game: "Apex",
+    viewers: "410",
+    uptime: "00:16",
+    hue: "var(--neon-gold)",
+  },
 ];
 
 export const LIVE_CHAT = [
@@ -131,8 +159,22 @@ export type GameAccess = {
 };
 
 export const ACCESSES: GameAccess[] = [
-  { id: "a1", game: "Valorant", state: "protected", sessions: 1, device: "PC — Lisboa", lastLogin: "Hoje 09:12" },
-  { id: "a2", game: "League of Legends", state: "linked", sessions: 2, device: "PC — Maputo", lastLogin: "Ontem 22:40" },
+  {
+    id: "a1",
+    game: "Valorant",
+    state: "protected",
+    sessions: 1,
+    device: "PC — Lisboa",
+    lastLogin: "Hoje 09:12",
+  },
+  {
+    id: "a2",
+    game: "League of Legends",
+    state: "linked",
+    sessions: 2,
+    device: "PC — Maputo",
+    lastLogin: "Ontem 22:40",
+  },
   { id: "a3", game: "CS2", state: "review", sessions: 0, device: "—", lastLogin: "08/05 18:05" },
 ];
 
@@ -168,10 +210,38 @@ export type Mission = {
 };
 
 export const MISSIONS: Mission[] = [
-  { id: "ms1", label: { pt: "Vencer 3 ranqueadas", en: "Win 3 ranked games" }, cycle: "daily", progress: 2, total: 3, xp: 150 },
-  { id: "ms2", label: { pt: "Gravar 5 highlights", en: "Record 5 highlights" }, cycle: "daily", progress: 5, total: 5, xp: 100 },
-  { id: "ms3", label: { pt: "Subir 1 divisão", en: "Climb 1 division" }, cycle: "weekly", progress: 1, total: 2, xp: 800 },
-  { id: "ms4", label: { pt: "Evento da guilda", en: "Guild event" }, cycle: "monthly", progress: 3, total: 4, xp: 2400 },
+  {
+    id: "ms1",
+    label: { pt: "Vencer 3 ranqueadas", en: "Win 3 ranked games" },
+    cycle: "daily",
+    progress: 2,
+    total: 3,
+    xp: 150,
+  },
+  {
+    id: "ms2",
+    label: { pt: "Gravar 5 highlights", en: "Record 5 highlights" },
+    cycle: "daily",
+    progress: 5,
+    total: 5,
+    xp: 100,
+  },
+  {
+    id: "ms3",
+    label: { pt: "Subir 1 divisão", en: "Climb 1 division" },
+    cycle: "weekly",
+    progress: 1,
+    total: 2,
+    xp: 800,
+  },
+  {
+    id: "ms4",
+    label: { pt: "Evento da guilda", en: "Guild event" },
+    cycle: "monthly",
+    progress: 3,
+    total: 4,
+    xp: 2400,
+  },
 ];
 
 export const MISSION_CYCLE_LABEL: Record<Mission["cycle"], Bi> = {
@@ -188,8 +258,20 @@ export const WALLET = {
 };
 
 export const WALLET_HISTORY = [
-  { id: "w1", pt: "Café recebido — Mira", en: "Coffee received — Mira", value: "+ € 4.00", date: "Hoje" },
-  { id: "w2", pt: "Contrato GamerPRO", en: "GamerPRO contract", value: "+ € 120.00", date: "11/05" },
+  {
+    id: "w1",
+    pt: "Café recebido — Mira",
+    en: "Coffee received — Mira",
+    value: "+ € 4.00",
+    date: "Hoje",
+  },
+  {
+    id: "w2",
+    pt: "Contrato GamerPRO",
+    en: "GamerPRO contract",
+    value: "+ € 120.00",
+    date: "11/05",
+  },
   { id: "w3", pt: "Saque para conta", en: "Withdrawal to bank", value: "- € 80.00", date: "08/05" },
 ];
 
@@ -207,9 +289,24 @@ export const STAT_TREND = [42, 55, 48, 63, 58, 72, 68, 81, 76, 88, 84, 94];
 export type OsEvent = { id: string; label: Bi; when: Bi; hue: string };
 
 export const EVENTS: OsEvent[] = [
-  { id: "e1", label: { pt: "Torneio Evolution Cup", en: "Evolution Cup" }, when: { pt: "Sábado 18:00", en: "Saturday 6pm" }, hue: "var(--neon-gold)" },
-  { id: "e2", label: { pt: "Noite de lives da guilda", en: "Guild live night" }, when: { pt: "Sexta 21:00", en: "Friday 9pm" }, hue: "var(--neon-pink)" },
-  { id: "e3", label: { pt: "Treino coletivo IA", en: "AI group training" }, when: { pt: "Amanhã 20:00", en: "Tomorrow 8pm" }, hue: "var(--neon-cyan)" },
+  {
+    id: "e1",
+    label: { pt: "Torneio Evolution Cup", en: "Evolution Cup" },
+    when: { pt: "Sábado 18:00", en: "Saturday 6pm" },
+    hue: "var(--neon-gold)",
+  },
+  {
+    id: "e2",
+    label: { pt: "Noite de lives da guilda", en: "Guild live night" },
+    when: { pt: "Sexta 21:00", en: "Friday 9pm" },
+    hue: "var(--neon-pink)",
+  },
+  {
+    id: "e3",
+    label: { pt: "Treino coletivo IA", en: "AI group training" },
+    when: { pt: "Amanhã 20:00", en: "Tomorrow 8pm" },
+    hue: "var(--neon-cyan)",
+  },
 ];
 
 export type MarketItem = {
@@ -221,18 +318,50 @@ export type MarketItem = {
 };
 
 export const MARKET: MarketItem[] = [
-  { id: "mk1", label: { pt: "Diamond Card", en: "Diamond Card" }, kind: "card", price: "€ 49.99", hue: "var(--rarity-diamond)" },
-  { id: "mk2", label: { pt: "Booster XP x2", en: "XP Booster x2" }, kind: "booster", price: "€ 6.99", hue: "var(--neon-green)" },
-  { id: "mk3", label: { pt: "Moldura holográfica", en: "Holographic frame" }, kind: "skin", price: "€ 3.49", hue: "var(--neon-pink)" },
-  { id: "mk4", label: { pt: "Pacote de medalhas", en: "Medal pack" }, kind: "item", price: "€ 9.99", hue: "var(--neon-gold)" },
+  {
+    id: "mk1",
+    label: { pt: "Diamond Card", en: "Diamond Card" },
+    kind: "card",
+    price: "€ 49.99",
+    hue: "var(--rarity-diamond)",
+  },
+  {
+    id: "mk2",
+    label: { pt: "Booster XP x2", en: "XP Booster x2" },
+    kind: "booster",
+    price: "€ 6.99",
+    hue: "var(--neon-green)",
+  },
+  {
+    id: "mk3",
+    label: { pt: "Moldura holográfica", en: "Holographic frame" },
+    kind: "skin",
+    price: "€ 3.49",
+    hue: "var(--neon-pink)",
+  },
+  {
+    id: "mk4",
+    label: { pt: "Pacote de medalhas", en: "Medal pack" },
+    kind: "item",
+    price: "€ 9.99",
+    hue: "var(--neon-gold)",
+  },
 ];
 
 export const SETTINGS_GROUPS = [
   { id: "s1", label: { pt: "Conta", en: "Account" }, value: { pt: "Verificada", en: "Verified" } },
-  { id: "s2", label: { pt: "Privacidade", en: "Privacy" }, value: { pt: "Perfil restrito", en: "Restricted profile" } },
+  {
+    id: "s2",
+    label: { pt: "Privacidade", en: "Privacy" },
+    value: { pt: "Perfil restrito", en: "Restricted profile" },
+  },
   { id: "s3", label: { pt: "Idioma", en: "Language" }, value: { pt: "Português", en: "English" } },
   { id: "s4", label: { pt: "Tema", en: "Theme" }, value: { pt: "Dark Neon", en: "Dark Neon" } },
-  { id: "s5", label: { pt: "Segurança", en: "Security" }, value: { pt: "2FA ativa", en: "2FA active" } },
+  {
+    id: "s5",
+    label: { pt: "Segurança", en: "Security" },
+    value: { pt: "2FA ativa", en: "2FA active" },
+  },
 ];
 
 export const ACHIEVEMENTS = [

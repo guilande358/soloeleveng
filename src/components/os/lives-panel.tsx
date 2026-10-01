@@ -46,7 +46,10 @@ export function LivesWidget() {
   return (
     <div className="scroll-hidden flex gap-2 overflow-x-auto">
       {data?.map((l) => (
-        <div key={l.id} className="w-32 shrink-0 rounded-lg border border-border/50 bg-surface-2/40 p-2">
+        <div
+          key={l.id}
+          className="w-32 shrink-0 rounded-lg border border-border/50 bg-surface-2/40 p-2"
+        >
           <div
             className="mb-2 grid h-14 place-items-center rounded-md border border-border/50"
             style={{
@@ -383,7 +386,9 @@ export function LivesFull() {
                 type="button"
                 onClick={() => setRoomId(r.id)}
                 className={`rounded-lg border px-2 py-1 text-[10px] ${
-                  r.id === currentRoomId ? "border-primary text-foreground" : "border-border/60 text-muted-foreground"
+                  r.id === currentRoomId
+                    ? "border-primary text-foreground"
+                    : "border-border/60 text-muted-foreground"
                 }`}
               >
                 {r.title}

@@ -20,7 +20,12 @@ export function MarketWidget() {
   return (
     <div>
       {cards.slice(0, 4).map((c) => (
-        <Row key={c.id} label={`${c.name} Card`} value={`${c.price.toFixed(2)} USD`} glow={c.glow} />
+        <Row
+          key={c.id}
+          label={`${c.name} Card`}
+          value={`${c.price.toFixed(2)} USD`}
+          glow={c.glow}
+        />
       ))}
     </div>
   );

@@ -72,7 +72,9 @@ export function ReplaysFull() {
       </div>
 
       {loading && (
-        <p className="text-xs text-muted-foreground">{lang === "pt" ? "A carregar..." : "Loading..."}</p>
+        <p className="text-xs text-muted-foreground">
+          {lang === "pt" ? "A carregar..." : "Loading..."}
+        </p>
       )}
 
       <div className="grid gap-2 sm:grid-cols-3">
@@ -84,7 +86,9 @@ export function ReplaysFull() {
             >
               <Play className="h-6 w-6" style={{ color: r.hue }} />
             </div>
-            <p className="truncate font-display text-[11px]">{lang === "pt" ? r.title_pt : r.title_en}</p>
+            <p className="truncate font-display text-[11px]">
+              {lang === "pt" ? r.title_pt : r.title_en}
+            </p>
             <p className="text-[9px] tracking-wider text-muted-foreground uppercase">
               {r.duration} · {r.map} · {r.kda}
             </p>
@@ -101,7 +105,9 @@ export function ReplaysFull() {
       )}
 
       <Link to="/perfil">
-        <ActionButton variant="ghost">{lang === "pt" ? "Ver percurso" : "View journey"}</ActionButton>
+        <ActionButton variant="ghost">
+          {lang === "pt" ? "Ver percurso" : "View journey"}
+        </ActionButton>
       </Link>
     </div>
   );

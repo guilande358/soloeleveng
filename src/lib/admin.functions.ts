@@ -3,7 +3,15 @@ import { z } from "zod";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-type Ctx = { supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }> }; userId: string };
+type Ctx = {
+  supabase: {
+    rpc: (
+      fn: string,
+      args: Record<string, unknown>,
+    ) => Promise<{ data: unknown; error: { message: string } | null }>;
+  };
+  userId: string;
+};
 
 async function assertAdmin(context: Ctx) {
   const { data, error } = await context.supabase.rpc("has_role", {

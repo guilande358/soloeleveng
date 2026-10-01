@@ -142,7 +142,10 @@ export function WalletFull() {
     <div className="grid gap-4 sm:grid-cols-2">
       <div className="space-y-2">
         <StatTile label={lang === "pt" ? "Saldo" : "Balance"} value={money(data?.balance ?? 0)} />
-        <Row label={lang === "pt" ? "Ganhos totais" : "Total earnings"} value={money(data?.earnings ?? 0)} />
+        <Row
+          label={lang === "pt" ? "Ganhos totais" : "Total earnings"}
+          value={money(data?.earnings ?? 0)}
+        />
         <Row label={lang === "pt" ? "Gastos" : "Spent"} value={money(data?.spent ?? 0)} />
         <Row label={lang === "pt" ? "Pendente" : "Pending"} value={money(data?.pending ?? 0)} />
         <Row
@@ -179,7 +182,9 @@ export function WalletFull() {
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
             className="w-full rounded-lg border border-border/60 bg-background px-2 py-1.5 text-[11px]"
-            placeholder={lang === "pt" ? "Número / conta de destino" : "Destination number / account"}
+            placeholder={
+              lang === "pt" ? "Número / conta de destino" : "Destination number / account"
+            }
           />
           <div className="flex flex-wrap gap-2">
             <ActionButton

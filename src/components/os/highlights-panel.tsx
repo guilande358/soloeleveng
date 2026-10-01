@@ -33,7 +33,6 @@ function useHighlights() {
   const items: HighlightItem[] = (mine.data?.length ? mine.data : shared.data) ?? [];
   const isLoading = shared.isLoading || (Boolean(userId) && mine.isLoading);
   return { items, isLoading, isMine: Boolean(mine.data?.length) };
-
 }
 
 const title = (h: HighlightItem, lang: string) => (lang === "pt" ? h.title_pt : h.title_en);
@@ -195,7 +194,13 @@ export function HighlightsFull() {
                   : "Make public"}
             </ActionButton>
             <Chip glow={selected.is_public ? "var(--neon-green)" : "var(--neon-gold)"}>
-              {selected.is_public ? (lang === "pt" ? "Público" : "Public") : lang === "pt" ? "Privado" : "Private"}
+              {selected.is_public
+                ? lang === "pt"
+                  ? "Público"
+                  : "Public"
+                : lang === "pt"
+                  ? "Privado"
+                  : "Private"}
             </Chip>
           </div>
         ) : null}
@@ -208,7 +213,12 @@ export function HighlightsFull() {
               <Brain className="h-3.5 w-3.5 text-neon-cyan" /> Timeline IA
             </p>
             {selected.timeline.map((e) => (
-              <Row key={e.at} label={lang === "pt" ? e.pt : e.en} value={e.at} glow="var(--neon-cyan)" />
+              <Row
+                key={e.at}
+                label={lang === "pt" ? e.pt : e.en}
+                value={e.at}
+                glow="var(--neon-cyan)"
+              />
             ))}
           </div>
         ) : null}

@@ -28,7 +28,13 @@ export function HudHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/src/assets/seev-logo.png" alt="Solo Eleveng Evolution" width={40} height={40} className="h-9 w-9" />
+          <img
+            src="/src/assets/seev-logo.png"
+            alt="Solo Eleveng Evolution"
+            width={40}
+            height={40}
+            className="h-9 w-9"
+          />
           <span className="font-display text-[11px] leading-3 tracking-[0.18em] text-foreground">
             SOLO
             <br />

@@ -106,7 +106,7 @@ export const resetPassword = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.auth.resetPasswordForEmail(data.email, {
-      redirectTo: `${process.env['VITE_APP_URL'] ?? 'http://localhost:8080'}/auth?reset=1`,
+      redirectTo: `${process.env["VITE_APP_URL"] ?? "http://localhost:8080"}/auth?reset=1`,
     });
     if (error) throw new Error(error.message);
     return { ok: true };

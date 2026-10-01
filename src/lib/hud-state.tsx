@@ -166,9 +166,13 @@ export function HudProvider({ children }: { children: ReactNode }) {
       setActiveCardId(id);
       persistLocal({ activeCardId: id, mode, profile });
       if (userId) {
-        supabase.from("profiles").update({ active_card_id: id }).eq("id", userId).then(({ error }) => {
-          if (error) console.error("Failed to persist active card", error);
-        });
+        supabase
+          .from("profiles")
+          .update({ active_card_id: id })
+          .eq("id", userId)
+          .then(({ error }) => {
+            if (error) console.error("Failed to persist active card", error);
+          });
       }
     },
     [mode, persistLocal, profile, userId],
@@ -178,9 +182,13 @@ export function HudProvider({ children }: { children: ReactNode }) {
     setActiveCardId(null);
     persistLocal({ activeCardId: null, mode, profile });
     if (userId) {
-      supabase.from("profiles").update({ active_card_id: null }).eq("id", userId).then(({ error }) => {
-        if (error) console.error("Failed to clear active card", error);
-      });
+      supabase
+        .from("profiles")
+        .update({ active_card_id: null })
+        .eq("id", userId)
+        .then(({ error }) => {
+          if (error) console.error("Failed to clear active card", error);
+        });
     }
   }, [mode, persistLocal, profile, userId]);
 
@@ -189,9 +197,13 @@ export function HudProvider({ children }: { children: ReactNode }) {
       setModeState(m);
       persistLocal({ activeCardId, mode: m, profile });
       if (userId) {
-        supabase.from("profiles").update({ mode: m }).eq("id", userId).then(({ error }) => {
-          if (error) console.error("Failed to persist mode", error);
-        });
+        supabase
+          .from("profiles")
+          .update({ mode: m })
+          .eq("id", userId)
+          .then(({ error }) => {
+            if (error) console.error("Failed to persist mode", error);
+          });
       }
     },
     [activeCardId, persistLocal, profile, userId],
