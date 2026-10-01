@@ -74,7 +74,12 @@ function GamesPage() {
     mutationFn: () =>
       editing
         ? updateFn({ data: { id: editing, patch: form } })
-        : createFn({ data: { ...form, slug: form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") } }),
+        : createFn({
+            data: {
+              ...form,
+              slug: form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+            },
+          }),
     onSuccess: () => {
       invalidate();
       setForm(EMPTY);
@@ -107,7 +112,17 @@ function GamesPage() {
       </p>
 
       {isAdmin && (
-        <HudPanel title={editing ? (lang === "pt" ? "Editar jogo" : "Edit game") : lang === "pt" ? "Novo jogo" : "New game"}>
+        <HudPanel
+          title={
+            editing
+              ? lang === "pt"
+                ? "Editar jogo"
+                : "Edit game"
+              : lang === "pt"
+                ? "Novo jogo"
+                : "New game"
+          }
+        >
           <div className="grid gap-2 sm:grid-cols-2">
             <input
               className={input}
@@ -154,7 +169,9 @@ function GamesPage() {
               inputMode="numeric"
               placeholder={lang === "pt" ? "Sessões simultâneas" : "Simultaneous sessions"}
               value={String(form.max_sessions)}
-              onChange={(e) => setForm((f) => ({ ...f, max_sessions: Number(e.target.value) || 1 }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, max_sessions: Number(e.target.value) || 1 }))
+              }
             />
             <label className="flex items-center gap-2 text-[11px] text-muted-foreground">
               <input
@@ -187,7 +204,11 @@ function GamesPage() {
         </HudPanel>
       )}
 
-      {isLoading && <p className="text-xs text-muted-foreground">{lang === "pt" ? "A carregar..." : "Loading..."}</p>}
+      {isLoading && (
+        <p className="text-xs text-muted-foreground">
+          {lang === "pt" ? "A carregar..." : "Loading..."}
+        </p>
+      )}
 
       <div className="grid gap-3 sm:grid-cols-2">
         {(games ?? []).map((g) => (
@@ -206,7 +227,9 @@ function GamesPage() {
               </Chip>
             </div>
             <p className="mt-2 text-[11px] text-muted-foreground">
-              <span className="font-display text-foreground">{lang === "pt" ? "Acesso: " : "Access: "}</span>
+              <span className="font-display text-foreground">
+                {lang === "pt" ? "Acesso: " : "Access: "}
+              </span>
               {lang === "pt" ? g.access_rules_pt : g.access_rules_en}
             </p>
             <p className="mt-1.5 flex gap-1.5 text-[11px] text-muted-foreground">

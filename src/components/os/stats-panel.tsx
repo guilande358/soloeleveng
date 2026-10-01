@@ -43,9 +43,16 @@ export function StatsWidget() {
         </span>
         <Chip glow="var(--neon-gold)">{data?.rank ?? "Iron"}</Chip>
       </div>
-      <Meter value={data?.xpIntoLevel ?? 0} max={data?.xpPerLevel ?? 1000} glow="var(--neon-gold)" />
+      <Meter
+        value={data?.xpIntoLevel ?? 0}
+        max={data?.xpPerLevel ?? 1000}
+        glow="var(--neon-gold)"
+      />
       <div className="grid grid-cols-3 gap-2">
-        <StatTile label={lang === "pt" ? "Partidas" : "Matches"} value={String(data?.matches ?? 0)} />
+        <StatTile
+          label={lang === "pt" ? "Partidas" : "Matches"}
+          value={String(data?.matches ?? 0)}
+        />
         <StatTile label={lang === "pt" ? "Vitórias" : "Wins"} value={String(data?.wins ?? 0)} />
         <StatTile label="K/D" value={String(data?.kd ?? 0)} />
       </div>
@@ -102,13 +109,25 @@ export function StatsFull() {
       });
     },
     onSuccess: () => {
-      toast.success(lang === "pt" ? "Partida registrada — XP creditado" : "Match saved — XP credited");
-      setForm((f) => ({ ...f, kills: "", deaths: "", assists: "", duration: "", medals: "", accuracy: "", mvp: false }));
+      toast.success(
+        lang === "pt" ? "Partida registrada — XP creditado" : "Match saved — XP credited",
+      );
+      setForm((f) => ({
+        ...f,
+        kills: "",
+        deaths: "",
+        assists: "",
+        duration: "",
+        medals: "",
+        accuracy: "",
+        mvp: false,
+      }));
       for (const key of ["progression", "matches", "missions", "contracts", "notifications"]) {
         void queryClient.invalidateQueries({ queryKey: [key] });
       }
     },
-    onError: () => toast.error(lang === "pt" ? "Não foi possível registrar" : "Could not save the match"),
+    onError: () =>
+      toast.error(lang === "pt" ? "Não foi possível registrar" : "Could not save the match"),
   });
 
   if (!userId) {
@@ -138,7 +157,11 @@ export function StatsFull() {
           <Chip glow="var(--neon-gold)">{data?.rank ?? "Iron"}</Chip>
         </div>
         <div className="mt-2">
-          <Meter value={data?.xpIntoLevel ?? 0} max={data?.xpPerLevel ?? 1000} glow="var(--neon-gold)" />
+          <Meter
+            value={data?.xpIntoLevel ?? 0}
+            max={data?.xpPerLevel ?? 1000}
+            glow="var(--neon-gold)"
+          />
         </div>
       </div>
 
@@ -149,7 +172,10 @@ export function StatsFull() {
         <StatTile label={lang === "pt" ? "Vitórias" : "Wins"} value={`${data?.winRate ?? 0}%`} />
         <StatTile label="K/D" value={String(data?.kd ?? 0)} />
         <StatTile label="MVP" value={String(data?.mvps ?? 0)} />
-        <StatTile label={lang === "pt" ? "Precisão" : "Accuracy"} value={`${data?.accuracy ?? 0}%`} />
+        <StatTile
+          label={lang === "pt" ? "Precisão" : "Accuracy"}
+          value={`${data?.accuracy ?? 0}%`}
+        />
         <StatTile label={lang === "pt" ? "Medalhas" : "Medals"} value={String(data?.medals ?? 0)} />
       </div>
 
@@ -172,7 +198,9 @@ export function StatsFull() {
           <select
             className={input}
             value={form.result}
-            onChange={(e) => setForm((f) => ({ ...f, result: e.target.value as "win" | "loss" | "draw" }))}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, result: e.target.value as "win" | "loss" | "draw" }))
+            }
           >
             <option value="win">{lang === "pt" ? "Vitória" : "Win"}</option>
             <option value="loss">{lang === "pt" ? "Derrota" : "Loss"}</option>

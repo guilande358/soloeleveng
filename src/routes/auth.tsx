@@ -125,9 +125,19 @@ function AuthPage() {
               <Field label={t("auth.user")} type="text" value={name} onChange={setName} />
             )}
             <Field label={t("auth.email")} type="email" value={email} onChange={setEmail} />
-            <Field label={t("auth.password")} type="password" value={password} onChange={setPassword} />
+            <Field
+              label={t("auth.password")}
+              type="password"
+              value={password}
+              onChange={setPassword}
+            />
             {tab === "signup" && (
-              <Field label={t("auth.confirm")} type="password" value={confirm} onChange={setConfirm} />
+              <Field
+                label={t("auth.confirm")}
+                type="password"
+                value={confirm}
+                onChange={setConfirm}
+              />
             )}
 
             {tab === "signup" && (

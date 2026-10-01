@@ -123,7 +123,10 @@ export function ContractsFull() {
   return (
     <div className="grid gap-2 sm:grid-cols-2">
       {data?.map((c) => (
-        <div key={c.id} className="space-y-2 rounded-xl border border-border/50 bg-surface-2/40 p-3">
+        <div
+          key={c.id}
+          className="space-y-2 rounded-xl border border-border/50 bg-surface-2/40 p-3"
+        >
           <div className="flex items-center justify-between gap-2">
             <p className="font-display text-[12px] capitalize">{c.cardId ?? "-"} Card</p>
             <Chip glow={statusGlow(c.status)}>{c.status}</Chip>

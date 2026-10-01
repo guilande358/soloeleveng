@@ -20,7 +20,9 @@ export function NotificationsPanel({ limit }: { limit?: number }) {
               <Bell className="h-3.5 w-3.5 text-neon-cyan" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-semibold">{lang === "pt" ? n.titlePt : n.titleEn}</p>
+              <p className="truncate text-xs font-semibold">
+                {lang === "pt" ? n.titlePt : n.titleEn}
+              </p>
               <p className="truncate text-[11px] text-muted-foreground">
                 {lang === "pt" ? n.bodyPt : n.bodyEn}
               </p>

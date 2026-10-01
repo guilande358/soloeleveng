@@ -44,7 +44,9 @@ export function MissionsWidget() {
       {(data ?? []).slice(0, 3).map((m) => (
         <div key={m.id}>
           <div className="flex items-center justify-between gap-2 text-[10px]">
-            <span className="truncate text-muted-foreground">{lang === "pt" ? m.labelPt : m.labelEn}</span>
+            <span className="truncate text-muted-foreground">
+              {lang === "pt" ? m.labelPt : m.labelEn}
+            </span>
             <span className="font-display">
               {m.progress}/{m.total}
             </span>
@@ -98,7 +100,11 @@ export function MissionsFull() {
   }
 
   if (isLoading) {
-    return <p className="text-xs text-muted-foreground">{lang === "pt" ? "A carregar..." : "Loading..."}</p>;
+    return (
+      <p className="text-xs text-muted-foreground">
+        {lang === "pt" ? "A carregar..." : "Loading..."}
+      </p>
+    );
   }
 
   return (
@@ -106,7 +112,9 @@ export function MissionsFull() {
       {(data ?? []).map((m: MissionEntry) => (
         <div key={m.id} className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
           <div className="mb-1.5 flex items-center justify-between gap-2">
-            <p className="truncate font-display text-[12px]">{lang === "pt" ? m.labelPt : m.labelEn}</p>
+            <p className="truncate font-display text-[12px]">
+              {lang === "pt" ? m.labelPt : m.labelEn}
+            </p>
             <Chip glow="var(--neon-green)">
               {lang === "pt"
                 ? (CYCLE_LABEL[m.cycle]?.pt ?? m.cycle)

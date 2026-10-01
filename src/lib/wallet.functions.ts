@@ -107,7 +107,9 @@ export const requestPayout = createServerFn({ method: "POST" })
     });
     if (deltaError) {
       throw new Error(
-        deltaError.message.includes("insufficient_funds") ? "insufficient_funds" : deltaError.message,
+        deltaError.message.includes("insufficient_funds")
+          ? "insufficient_funds"
+          : deltaError.message,
       );
     }
 

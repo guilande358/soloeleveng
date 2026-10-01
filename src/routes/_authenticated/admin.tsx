@@ -27,7 +27,10 @@ export const Route = createFileRoute("/_authenticated/admin")({
           "Painel único para acompanhar pedidos, contratos, lives, carteiras e saques de todos os jogadores do HUD.",
       },
       { property: "og:title", content: "Centro de administração — Solo Eleveng" },
-      { property: "og:description", content: "Pedidos, contratos, lives, carteiras e saques num só lugar." },
+      {
+        property: "og:description",
+        content: "Pedidos, contratos, lives, carteiras e saques num só lugar.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -77,7 +80,8 @@ function AdminPage() {
   const fail = () => toast.error(lang === "pt" ? "Ação não permitida" : "Action not allowed");
 
   const setOrder = useMutation({
-    mutationFn: (v: { id: string; status: "active" | "completed" | "cancelled" }) => orderFn({ data: v }),
+    mutationFn: (v: { id: string; status: "active" | "completed" | "cancelled" }) =>
+      orderFn({ data: v }),
     onSuccess: done,
     onError: fail,
   });
@@ -130,7 +134,9 @@ function AdminPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="font-display text-2xl">{lang === "pt" ? "Administração" : "Administration"}</h1>
+      <h1 className="font-display text-2xl">
+        {lang === "pt" ? "Administração" : "Administration"}
+      </h1>
 
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <StatTile
@@ -145,7 +151,10 @@ function AdminPage() {
           label={lang === "pt" ? "Contratos ativos" : "Active contracts"}
           value={String(data?.totals.activeContracts ?? 0)}
         />
-        <StatTile label={lang === "pt" ? "Ao vivo" : "Live now"} value={String(data?.totals.liveNow ?? 0)} />
+        <StatTile
+          label={lang === "pt" ? "Ao vivo" : "Live now"}
+          value={String(data?.totals.liveNow ?? 0)}
+        />
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -158,7 +167,11 @@ function AdminPage() {
         ))}
       </div>
 
-      {isLoading && <p className="text-xs text-muted-foreground">{lang === "pt" ? "A carregar..." : "Loading..."}</p>}
+      {isLoading && (
+        <p className="text-xs text-muted-foreground">
+          {lang === "pt" ? "A carregar..." : "Loading..."}
+        </p>
+      )}
 
       {tab === "orders" && (
         <div className="space-y-2">
@@ -166,18 +179,29 @@ function AdminPage() {
             <HudPanel key={o.id}>
               <div className="flex items-center justify-between gap-2">
                 <p className="font-display text-[12px]">{o.player}</p>
-                <Chip glow={o.status === "active" ? "var(--neon-green)" : undefined}>{o.status}</Chip>
+                <Chip glow={o.status === "active" ? "var(--neon-green)" : undefined}>
+                  {o.status}
+                </Chip>
               </div>
               <Row label={lang === "pt" ? "Carta" : "Card"} value={o.card_id} />
               <Row label={lang === "pt" ? "Modo" : "Mode"} value={o.mode} />
               <div className="mt-2 flex flex-wrap gap-2">
-                <ActionButton variant="ghost" onClick={() => setOrder.mutate({ id: o.id, status: "active" })}>
+                <ActionButton
+                  variant="ghost"
+                  onClick={() => setOrder.mutate({ id: o.id, status: "active" })}
+                >
                   {lang === "pt" ? "Ativar" : "Activate"}
                 </ActionButton>
-                <ActionButton variant="ghost" onClick={() => setOrder.mutate({ id: o.id, status: "completed" })}>
+                <ActionButton
+                  variant="ghost"
+                  onClick={() => setOrder.mutate({ id: o.id, status: "completed" })}
+                >
                   {lang === "pt" ? "Concluir" : "Complete"}
                 </ActionButton>
-                <ActionButton variant="ghost" onClick={() => setOrder.mutate({ id: o.id, status: "cancelled" })}>
+                <ActionButton
+                  variant="ghost"
+                  onClick={() => setOrder.mutate({ id: o.id, status: "cancelled" })}
+                >
                   {lang === "pt" ? "Cancelar" : "Cancel"}
                 </ActionButton>
               </div>
@@ -192,19 +216,33 @@ function AdminPage() {
             <HudPanel key={c.id}>
               <div className="flex items-center justify-between gap-2">
                 <p className="font-display text-[12px]">{c.player}</p>
-                <Chip glow={c.status === "active" ? "var(--neon-green)" : undefined}>{c.status}</Chip>
+                <Chip glow={c.status === "active" ? "var(--neon-green)" : undefined}>
+                  {c.status}
+                </Chip>
               </div>
               <Row label={lang === "pt" ? "Tipo" : "Kind"} value={c.kind} />
-              <Row label={lang === "pt" ? "Comissão" : "Commission"} value={`${Math.round(c.commission_rate * 100)}%`} />
+              <Row
+                label={lang === "pt" ? "Comissão" : "Commission"}
+                value={`${Math.round(c.commission_rate * 100)}%`}
+              />
               <Row label={lang === "pt" ? "Progresso" : "Progress"} value={`${c.percent}%`} />
               <div className="mt-2 flex flex-wrap gap-2">
-                <ActionButton variant="ghost" onClick={() => setContract.mutate({ id: c.id, status: "paused" })}>
+                <ActionButton
+                  variant="ghost"
+                  onClick={() => setContract.mutate({ id: c.id, status: "paused" })}
+                >
                   {lang === "pt" ? "Pausar" : "Pause"}
                 </ActionButton>
-                <ActionButton variant="ghost" onClick={() => setContract.mutate({ id: c.id, status: "active" })}>
+                <ActionButton
+                  variant="ghost"
+                  onClick={() => setContract.mutate({ id: c.id, status: "active" })}
+                >
                   {lang === "pt" ? "Retomar" : "Resume"}
                 </ActionButton>
-                <ActionButton variant="ghost" onClick={() => setContract.mutate({ id: c.id, status: "completed" })}>
+                <ActionButton
+                  variant="ghost"
+                  onClick={() => setContract.mutate({ id: c.id, status: "completed" })}
+                >
                   {lang === "pt" ? "Concluir" : "Complete"}
                 </ActionButton>
               </div>
@@ -220,11 +258,20 @@ function AdminPage() {
               <div className="flex items-center justify-between gap-2">
                 <p className="truncate font-display text-[12px]">{l.title}</p>
                 <Chip glow={l.is_live ? "var(--neon-pink)" : undefined}>
-                  {l.is_live ? (lang === "pt" ? "Ao vivo" : "Live") : lang === "pt" ? "Encerrada" : "Ended"}
+                  {l.is_live
+                    ? lang === "pt"
+                      ? "Ao vivo"
+                      : "Live"
+                    : lang === "pt"
+                      ? "Encerrada"
+                      : "Ended"}
                 </Chip>
               </div>
               <Row label={lang === "pt" ? "Jogador" : "Player"} value={l.player} />
-              <Row label={lang === "pt" ? "Espectadores" : "Viewers"} value={String(l.viewer_count)} />
+              <Row
+                label={lang === "pt" ? "Espectadores" : "Viewers"}
+                value={String(l.viewer_count)}
+              />
               {l.is_live && (
                 <div className="mt-2">
                   <ActionButton variant="ghost" onClick={() => endLive.mutate(l.id)}>
@@ -286,14 +333,21 @@ function AdminPage() {
             <HudPanel key={p.id}>
               <div className="flex items-center justify-between gap-2">
                 <p className="font-display text-[12px]">{p.player}</p>
-                <Chip glow={p.status === "pending" ? "var(--neon-gold)" : undefined}>{p.status}</Chip>
+                <Chip glow={p.status === "pending" ? "var(--neon-gold)" : undefined}>
+                  {p.status}
+                </Chip>
               </div>
-              <Row label={lang === "pt" ? "Valor" : "Amount"} value={`${p.amount.toFixed(2)} USD`} />
+              <Row
+                label={lang === "pt" ? "Valor" : "Amount"}
+                value={`${p.amount.toFixed(2)} USD`}
+              />
               <Row label={lang === "pt" ? "Método" : "Method"} value={p.method} />
               <Row label={lang === "pt" ? "Destino" : "Destination"} value={p.destination} />
               {p.status === "pending" && (
                 <div className="mt-2 flex gap-2">
-                  <ActionButton onClick={() => resolvePayout.mutate({ id: p.id, decision: "paid" })}>
+                  <ActionButton
+                    onClick={() => resolvePayout.mutate({ id: p.id, decision: "paid" })}
+                  >
                     {lang === "pt" ? "Pagar" : "Mark paid"}
                   </ActionButton>
                   <ActionButton

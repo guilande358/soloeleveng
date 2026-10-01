@@ -164,7 +164,14 @@ export const BENEFITS = {
   en: ["Professional trainer", "Account protection", "24/7 support", "Progress reports"],
 };
 
-export type Notification = { id: string; titlePt: string; titleEn: string; bodyPt: string; bodyEn: string; time: string };
+export type Notification = {
+  id: string;
+  titlePt: string;
+  titleEn: string;
+  bodyPt: string;
+  bodyEn: string;
+  time: string;
+};
 
 export const NOTIFICATIONS: Notification[] = [
   {
@@ -201,34 +208,117 @@ export const NOTIFICATIONS: Notification[] = [
   },
 ];
 
-export type Contract = { id: string; card: string; objective: string; status: "running" | "done"; time: string };
+export type Contract = {
+  id: string;
+  card: string;
+  objective: string;
+  status: "running" | "done";
+  time: string;
+};
 
 export const CONTRACTS: Contract[] = [
-  { id: "c1", card: "Diamond Card", objective: "Diamond IV → Diamond II", status: "running", time: "4 dias" },
-  { id: "c2", card: "Master Card", objective: "Diamond I → Master", status: "done", time: "9 dias" },
-  { id: "c3", card: "Platinum Card", objective: "Platinum IV → Diamond IV", status: "done", time: "5 dias" },
+  {
+    id: "c1",
+    card: "Diamond Card",
+    objective: "Diamond IV → Diamond II",
+    status: "running",
+    time: "4 dias",
+  },
+  {
+    id: "c2",
+    card: "Master Card",
+    objective: "Diamond I → Master",
+    status: "done",
+    time: "9 dias",
+  },
+  {
+    id: "c3",
+    card: "Platinum Card",
+    objective: "Platinum IV → Diamond IV",
+    status: "done",
+    time: "5 dias",
+  },
 ];
 
-export type GameVideo = { id: string; titlePt: string; titleEn: string; duration: string; date: string };
+export type GameVideo = {
+  id: string;
+  titlePt: string;
+  titleEn: string;
+  duration: string;
+  date: string;
+};
 
 export const VIDEOS: GameVideo[] = [
-  { id: "v1", titlePt: "Highlight #1", titleEn: "Highlight #1", duration: "04:36", date: "12/05/2026" },
-  { id: "v2", titlePt: "Ranqueada insana", titleEn: "Insane ranked", duration: "08:12", date: "10/05/2026" },
-  { id: "v3", titlePt: "Clutch perfeito", titleEn: "Perfect clutch", duration: "02:58", date: "08/05/2026" },
+  {
+    id: "v1",
+    titlePt: "Highlight #1",
+    titleEn: "Highlight #1",
+    duration: "04:36",
+    date: "12/05/2026",
+  },
+  {
+    id: "v2",
+    titlePt: "Ranqueada insana",
+    titleEn: "Insane ranked",
+    duration: "08:12",
+    date: "10/05/2026",
+  },
+  {
+    id: "v3",
+    titlePt: "Clutch perfeito",
+    titleEn: "Perfect clutch",
+    duration: "02:58",
+    date: "08/05/2026",
+  },
 ];
 
 export const MEDALS = [
-  { id: "m1", labelPt: "Primeira evolução", labelEn: "First evolution", glow: "var(--rarity-gold)" },
-  { id: "m2", labelPt: "Mestre das sombras", labelEn: "Master of shadows", glow: "var(--rarity-master)" },
+  {
+    id: "m1",
+    labelPt: "Primeira evolução",
+    labelEn: "First evolution",
+    glow: "var(--rarity-gold)",
+  },
+  {
+    id: "m2",
+    labelPt: "Mestre das sombras",
+    labelEn: "Master of shadows",
+    glow: "var(--rarity-master)",
+  },
   { id: "m3", labelPt: "Invicto 10x", labelEn: "10x unbeaten", glow: "var(--rarity-diamond)" },
-  { id: "m4", labelPt: "Guilda lendária", labelEn: "Legendary guild", glow: "var(--rarity-legendary)" },
+  {
+    id: "m4",
+    labelPt: "Guilda lendária",
+    labelEn: "Legendary guild",
+    glow: "var(--rarity-legendary)",
+  },
 ];
 
 export const JOURNEY = [
-  { id: "j1", labelPt: "Conta ligada com link cifrado", labelEn: "Account linked via encrypted link", date: "01/05" },
-  { id: "j2", labelPt: "Platinum Card concluído", labelEn: "Platinum Card completed", date: "06/05" },
-  { id: "j3", labelPt: "Entrou na Evolution Guild", labelEn: "Joined Evolution Guild", date: "09/05" },
-  { id: "j4", labelPt: "Diamond Card em andamento", labelEn: "Diamond Card in progress", date: "12/05" },
+  {
+    id: "j1",
+    labelPt: "Conta ligada com link cifrado",
+    labelEn: "Account linked via encrypted link",
+    date: "01/05",
+  },
+  {
+    id: "j2",
+    labelPt: "Platinum Card concluído",
+    labelEn: "Platinum Card completed",
+    date: "06/05",
+  },
+  {
+    id: "j3",
+    labelPt: "Entrou na Evolution Guild",
+    labelEn: "Joined Evolution Guild",
+    date: "09/05",
+  },
+  {
+    id: "j4",
+    labelPt: "Diamond Card em andamento",
+    labelEn: "Diamond Card in progress",
+    date: "12/05",
+  },
 ];
 
 export const PAYMENT_METHODS = [

@@ -36,7 +36,9 @@ export function SecureAccessPanel() {
       <div className="mt-3 flex items-center gap-2">
         <div className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-border bg-surface-2/60 px-3 py-2">
           <KeyRound className="h-3.5 w-3.5 shrink-0 text-neon-green" />
-          <span className={revoked ? "truncate text-xs line-through opacity-60" : "truncate text-xs"}>
+          <span
+            className={revoked ? "truncate text-xs line-through opacity-60" : "truncate text-xs"}
+          >
             {link}
           </span>
         </div>

@@ -120,8 +120,14 @@ const dict = {
   "auth.welcomeBack": { pt: "Bem-vindo de volta!", en: "Welcome back!" },
   "auth.accountCreated": { pt: "Conta criada com sucesso!", en: "Account created successfully!" },
   "auth.passwordMismatch": { pt: "As senhas não coincidem.", en: "Passwords do not match." },
-  "auth.acceptTerms": { pt: "Aceite os termos para continuar.", en: "Accept the terms to continue." },
-  "auth.error": { pt: "Ocorreu um erro. Tente novamente.", en: "An error occurred. Please try again." },
+  "auth.acceptTerms": {
+    pt: "Aceite os termos para continuar.",
+    en: "Accept the terms to continue.",
+  },
+  "auth.error": {
+    pt: "Ocorreu um erro. Tente novamente.",
+    en: "An error occurred. Please try again.",
+  },
   "auth.signOut": { pt: "Sair", en: "Sign out" },
   "auth.signedOut": { pt: "Sessão terminada.", en: "Signed out." },
 

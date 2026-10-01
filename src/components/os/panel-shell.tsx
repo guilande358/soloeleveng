@@ -15,11 +15,25 @@ type Props = {
 };
 
 /** Living module: hover 3D tilt, neon border, particles. The panel itself is the button. */
-export function PanelShell({ title, hint, glow = "var(--neon)", Icon, className, onOpen, children }: Props) {
+export function PanelShell({
+  title,
+  hint,
+  glow = "var(--neon)",
+  Icon,
+  className,
+  onOpen,
+  children,
+}: Props) {
   const px = useMotionValue(0);
   const py = useMotionValue(0);
-  const rotateY = useSpring(useTransform(px, [-0.5, 0.5], [-6, 6]), { stiffness: 220, damping: 22 });
-  const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [5, -5]), { stiffness: 220, damping: 22 });
+  const rotateY = useSpring(useTransform(px, [-0.5, 0.5], [-6, 6]), {
+    stiffness: 220,
+    damping: 22,
+  });
+  const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [5, -5]), {
+    stiffness: 220,
+    damping: 22,
+  });
 
   return (
     <motion.div
@@ -53,7 +67,10 @@ export function PanelShell({ title, hint, glow = "var(--neon)", Icon, className,
     >
       <span className="os-sheen" aria-hidden />
       <span className="os-particles" aria-hidden />
-      <span className="hud-frame opacity-0 transition-opacity duration-300 group-hover:opacity-90" aria-hidden />
+      <span
+        className="hud-frame opacity-0 transition-opacity duration-300 group-hover:opacity-90"
+        aria-hidden
+      />
 
       <header className="relative mb-2.5 flex items-center justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2">

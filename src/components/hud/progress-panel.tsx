@@ -9,7 +9,6 @@ export function ProgressPanel() {
   const xpMax = 18000;
   const fmt = (n: number) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
-
   return (
     <HudPanel title={t("progress.title")} glow="var(--neon-gold)">
       <div className="flex items-center gap-4">
@@ -43,15 +42,7 @@ export function ProgressPanel() {
   );
 }
 
-function Stat({
-  Icon,
-  label,
-  value,
-}: {
-  Icon: typeof Medal;
-  label: string;
-  value: string;
-}) {
+function Stat({ Icon, label, value }: { Icon: typeof Medal; label: string; value: string }) {
   return (
     <div className="rounded-lg border border-border/60 bg-surface-2/50 p-2">
       <Icon className="mx-auto h-3.5 w-3.5 text-neon-gold" />

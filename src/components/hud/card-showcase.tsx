@@ -55,10 +55,7 @@ export function CardShowcase({ card }: { card: GameCard }) {
         <div className="flex flex-col gap-3">
           <div className="grid grid-cols-2 gap-2">
             {stats.map(({ Icon, label, value }) => (
-              <div
-                key={label}
-                className="rounded-lg border border-border/70 bg-surface-2/60 p-2.5"
-              >
+              <div key={label} className="rounded-lg border border-border/70 bg-surface-2/60 p-2.5">
                 <div className="flex items-center gap-1.5 text-[10px] tracking-widest text-muted-foreground uppercase">
                   <Icon className="h-3.5 w-3.5 text-[var(--glow)]" />
                   {label}

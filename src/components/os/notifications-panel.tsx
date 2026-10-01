@@ -39,7 +39,9 @@ export function NotificationsWidget() {
   if (!userId) {
     return (
       <p className="text-[11px] text-muted-foreground">
-        {lang === "pt" ? "Entre para ver as suas notificações." : "Sign in to see your notifications."}
+        {lang === "pt"
+          ? "Entre para ver as suas notificações."
+          : "Sign in to see your notifications."}
       </p>
     );
   }
@@ -72,7 +74,10 @@ export function NotificationsFull() {
   const readAllFn = useServerFn(markAllNotificationsRead);
 
   const invalidate = () => void queryClient.invalidateQueries({ queryKey: ["notifications"] });
-  const markOne = useMutation({ mutationFn: (id: string) => readFn({ data: { id } }), onSuccess: invalidate });
+  const markOne = useMutation({
+    mutationFn: (id: string) => readFn({ data: { id } }),
+    onSuccess: invalidate,
+  });
   const markAll = useMutation({ mutationFn: () => readAllFn(), onSuccess: invalidate });
 
   if (!userId) {
@@ -93,7 +98,9 @@ export function NotificationsFull() {
   return (
     <div className="space-y-2">
       {isLoading && (
-        <p className="text-xs text-muted-foreground">{lang === "pt" ? "A carregar..." : "Loading..."}</p>
+        <p className="text-xs text-muted-foreground">
+          {lang === "pt" ? "A carregar..." : "Loading..."}
+        </p>
       )}
       {(data ?? []).map((n) => (
         <button
@@ -103,14 +110,18 @@ export function NotificationsFull() {
           className="w-full rounded-xl border border-border/50 bg-surface-2/40 p-3 text-left"
         >
           <div className="flex items-center justify-between gap-2">
-            <p className="truncate font-display text-[12px]">{lang === "pt" ? n.title_pt : n.title_en}</p>
+            <p className="truncate font-display text-[12px]">
+              {lang === "pt" ? n.title_pt : n.title_en}
+            </p>
             {n.read ? (
               <span className="text-[10px] text-muted-foreground">{fmt(n.created_at, lang)}</span>
             ) : (
               <Chip glow="var(--neon-cyan)">{lang === "pt" ? "Nova" : "New"}</Chip>
             )}
           </div>
-          <p className="text-[11px] text-muted-foreground">{lang === "pt" ? n.body_pt : n.body_en}</p>
+          <p className="text-[11px] text-muted-foreground">
+            {lang === "pt" ? n.body_pt : n.body_en}
+          </p>
         </button>
       ))}
       {data && data.length === 0 && (
@@ -123,7 +134,9 @@ export function NotificationsFull() {
           {lang === "pt" ? "Marcar todas" : "Mark all read"}
         </ActionButton>
         <Link to="/notificacoes">
-          <ActionButton variant="ghost">{lang === "pt" ? "Central completa" : "Full center"}</ActionButton>
+          <ActionButton variant="ghost">
+            {lang === "pt" ? "Central completa" : "Full center"}
+          </ActionButton>
         </Link>
       </div>
     </div>

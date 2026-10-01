@@ -11,7 +11,13 @@ import { useHud } from "@/lib/hud-state";
 import { useI18n } from "@/lib/i18n";
 import { glowStyle } from "@/lib/style";
 
-const ACCENTS = ["var(--neon)", "var(--neon-cyan)", "var(--neon-gold)", "var(--neon-green)", "var(--neon-pink)"];
+const ACCENTS = [
+  "var(--neon)",
+  "var(--neon-cyan)",
+  "var(--neon-gold)",
+  "var(--neon-green)",
+  "var(--neon-pink)",
+];
 
 export const Route = createFileRoute("/perfil")({
   head: () => ({
