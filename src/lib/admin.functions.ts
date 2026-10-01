@@ -5,22 +5,39 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 type Ctx = {
   supabase: {
-    rpc: (
-      fn: string,
-      args: Record<string, unknown>,
-    ) => Promise<{ data: unknown; error: { message: string } | null }>;
+    from: (table: string) => {
+      select: (cols: string) => {
+        eq: (
+          col: string,
+          value: string,
+        ) => {
+          eq: (
+            col: string,
+            value: string,
+          ) => {
+            maybeSingle: () => Promise<{
+              data: unknown;
+              error: { message: string } | null;
+            }>;
+          };
+        };
+      };
+    };
   };
   userId: string;
 };
 
 async function assertAdmin(context: Ctx) {
-  const { data, error } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
-    _role: "admin",
-  });
+  const { data, error } = await context.supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", context.userId)
+    .eq("role", "admin")
+    .maybeSingle();
   if (error) throw new Error(error.message);
   if (!data) throw new Error("forbidden");
 }
+
 
 export type AdminOverview = {
   orders: {

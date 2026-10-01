@@ -1050,6 +1050,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
       rank_for_xp: { Args: { _xp: number }; Returns: string }
     }
     Enums: {
