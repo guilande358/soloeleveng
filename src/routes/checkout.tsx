@@ -87,19 +87,28 @@ function CheckoutPage() {
       void navigate({ to: "/" });
     },
     onError: (error: Error) => {
-      toast.error(
-        error.message.includes("insufficient_funds")
-          ? lang === "pt"
-            ? "Saldo insuficiente — recarregue a carteira."
-            : "Insufficient balance — top up your wallet."
-          : error.message.includes("paypal")
-            ? lang === "pt"
-              ? "O PayPal não aceitou este pagamento. Tente de novo."
-              : "PayPal did not accept this payment. Please try again."
-            : lang === "pt"
-              ? "Não foi possível concluir o pagamento"
-              : "Could not complete the payment",
-      );
+      const m = error.message ?? "";
+      const pt = lang === "pt";
+      const msg = m.includes("insufficient_funds")
+        ? pt
+          ? "Saldo insuficiente — recarregue a carteira ou pague com PayPal."
+          : "Insufficient balance — top up your wallet or pay with PayPal."
+        : m.includes("already_active")
+          ? pt
+            ? "Esta carta já está ativa na sua conta."
+            : "This card is already active on your account."
+          : m.includes("Unauthorized")
+            ? pt
+              ? "Sessão expirada — entre novamente."
+              : "Session expired — please sign in again."
+            : m.toLowerCase().includes("paypal")
+              ? pt
+                ? "O PayPal não aceitou este pagamento. Tente de novo."
+                : "PayPal did not accept this payment. Please try again."
+              : pt
+                ? `Não foi possível concluir o pagamento${m ? ` (${m})` : ""}`
+                : `Could not complete the payment${m ? ` (${m})` : ""}`;
+      toast.error(msg);
     },
   });
 
