@@ -116,13 +116,47 @@ export const resetPassword = createServerFn({ method: "POST" })
 export const getMe = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data: profile, error } = await context.supabase
+    const { data: existing, error } = await context.supabase
       .from("profiles")
       .select("*")
       .eq("id", context.userId)
-      .single();
+      .maybeSingle();
 
     if (error) throw new Error(error.message);
+    if (existing) return { userId: context.userId, profile: existing };
+
+    // First sign-in (e.g. Google): create the default profile + wallet.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const meta = (context.claims as { user_metadata?: Record<string, unknown>; email?: string })
+      ?.user_metadata;
+    const email = (context.claims as { email?: string })?.email ?? "";
+    const name =
+      String(meta?.["full_name"] ?? meta?.["name"] ?? email.split("@")[0] ?? "Gamer").slice(0, 40) ||
+      "Gamer";
+
+    const { data: profile, error: insErr } = await supabaseAdmin
+      .from("profiles")
+      .upsert(
+        {
+          id: context.userId,
+          name,
+          title: "Ranqueada Solo",
+          bio: "Apenas um gamer apaixonado por desafios e evolução.",
+          accent: "var(--neon)",
+          mode: "friendly",
+        },
+        { onConflict: "id" },
+      )
+      .select("*")
+      .single();
+    if (insErr) throw new Error(insErr.message);
+
+    await supabaseAdmin
+      .from("wallets")
+      .upsert(
+        { user_id: context.userId, balance: 0, coffee_count: 0, pending: 0 },
+        { onConflict: "user_id", ignoreDuplicates: true },
+      );
 
     return { userId: context.userId, profile };
   });
