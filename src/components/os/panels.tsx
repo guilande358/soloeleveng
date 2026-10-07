@@ -6,6 +6,7 @@ import {
   CreditCard,
   Film,
   Gamepad2,
+  HardDrive,
   KeyRound,
   Play,
   Radio,
@@ -21,6 +22,7 @@ import {
 } from "lucide-react";
 
 import { AccessFull, AccessWidget } from "@/components/os/access-panel";
+import { CloudSaveFull, CloudSaveWidget } from "@/components/os/cloud-save-panel";
 import { ContractsFull, ContractsWidget } from "@/components/os/contracts-panel";
 import { HighlightsFull, HighlightsWidget } from "@/components/os/highlights-panel";
 import { LivesFull, LivesWidget } from "@/components/os/lives-panel";
@@ -384,6 +386,15 @@ export const PANELS: PanelDef[] = [
     span: "",
     Widget: FriendsWidget,
     Full: FriendsFull,
+  },
+  {
+    id: "cloudsave",
+    title: { pt: "Cloud Save Vault", en: "Cloud Save Vault" },
+    Icon: HardDrive,
+    glow: "var(--neon-cyan)",
+    span: "",
+    Widget: CloudSaveWidget,
+    Full: CloudSaveFull,
   },
   {
     id: "missions",

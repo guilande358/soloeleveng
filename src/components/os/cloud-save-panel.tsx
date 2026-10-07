@@ -132,7 +132,7 @@ export function CloudSaveFull() {
         <input className={input} placeholder="Slot" value={slot} onChange={(e) => setSlot(e.target.value)} />
         <input className={input} placeholder={pt ? "Nota da versão (opcional)" : "Version note (optional)"} value={note} onChange={(e) => setNote(e.target.value)} />
         <input type="file" className="w-full text-xs" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-        <ActionButton onClick={() => upload.mutate()} disabled={upload.isPending}>
+        <ActionButton onClick={() => upload.mutate()}>
           {upload.isPending ? (pt ? "A sincronizar…" : "Syncing…") : pt ? "Sincronizar na nuvem" : "Sync to cloud"}
         </ActionButton>
         <p className="text-[11px] text-muted-foreground">
