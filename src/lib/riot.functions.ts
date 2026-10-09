@@ -58,7 +58,7 @@ export const linkRiotAccount = createServerFn({ method: "POST" })
     z
       .object({
         gameName: z.string().trim().min(3).max(16),
-        tagLine: z.string().trim().replace(/^#/, "").min(2).max(5),
+        tagLine: z.string().trim().min(2).max(6).transform((s) => s.replace(/^#/, "")),
         platform: z.enum(PLATFORMS),
       })
       .parse(i),
