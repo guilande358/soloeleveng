@@ -8,6 +8,13 @@
       "when": 1791393298442,
       "tag": "0000_game_saves",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791517145929,
+      "tag": "0001_riot_integration",
+      "breakpoints": true
     }
   ]
 }
