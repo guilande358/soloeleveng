@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { RiotConnect } from "@/components/os/riot-connect";
 import { ActionButton, Chip, Meter, Sparkline, StatTile } from "@/components/os/ui";
 import { listGames } from "@/lib/games.functions";
 import { useHud } from "@/lib/hud-state";
@@ -149,6 +150,7 @@ export function StatsFull() {
 
   return (
     <div className="space-y-4">
+      <RiotConnect />
       <div className="rounded-xl border border-border/50 bg-surface-2/40 p-3">
         <div className="flex items-center justify-between gap-2">
           <p className="font-display text-[12px]">

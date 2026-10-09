@@ -583,6 +583,7 @@ export type Database = {
           created_at: string
           deaths: number
           duration_minutes: number
+          external_match_id: string | null
           game_id: string | null
           game_name: string
           id: string
@@ -592,6 +593,7 @@ export type Database = {
           note: string | null
           played_at: string
           result: string
+          source: string
           user_id: string
           xp: number
         }
@@ -601,6 +603,7 @@ export type Database = {
           created_at?: string
           deaths?: number
           duration_minutes?: number
+          external_match_id?: string | null
           game_id?: string | null
           game_name: string
           id?: string
@@ -610,6 +613,7 @@ export type Database = {
           note?: string | null
           played_at?: string
           result?: string
+          source?: string
           user_id: string
           xp?: number
         }
@@ -619,6 +623,7 @@ export type Database = {
           created_at?: string
           deaths?: number
           duration_minutes?: number
+          external_match_id?: string | null
           game_id?: string | null
           game_name?: string
           id?: string
@@ -628,6 +633,7 @@ export type Database = {
           note?: string | null
           played_at?: string
           result?: string
+          source?: string
           user_id?: string
           xp?: number
         }
@@ -901,6 +907,48 @@ export type Database = {
           title?: string
           updated_at?: string
           xp?: number
+        }
+        Relationships: []
+      }
+      riot_accounts: {
+        Row: {
+          created_at: string
+          division: string | null
+          game_name: string
+          last_synced_at: string | null
+          lp: number | null
+          platform: string
+          puuid: string
+          tag_line: string
+          tier: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          division?: string | null
+          game_name: string
+          last_synced_at?: string | null
+          lp?: number | null
+          platform: string
+          puuid: string
+          tag_line: string
+          tier?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          division?: string | null
+          game_name?: string
+          last_synced_at?: string | null
+          lp?: number | null
+          platform?: string
+          puuid?: string
+          tag_line?: string
+          tier?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
