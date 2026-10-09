@@ -19,6 +19,9 @@ import { Route as ModosRouteImport } from './routes/modos'
 import { Route as NotificacoesRouteImport } from './routes/notificacoes'
 import { Route as PagamentoRouteImport } from './routes/pagamento'
 import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as SobreRiotRouteImport } from './routes/sobre-riot'
+import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
@@ -71,6 +74,21 @@ const PerfilRoute = PerfilRouteImport.update({
   path: '/perfil',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRiotRoute = SobreRiotRouteImport.update({
+  id: '/sobre-riot',
+  path: '/sobre-riot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermosRoute = TermosRouteImport.update({
+  id: '/termos',
+  path: '/termos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -93,6 +111,9 @@ export interface FileRoutesByFullPath {
   '/notificacoes': typeof NotificacoesRoute
   '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/sobre-riot': typeof SobreRiotRoute
+  '/termos': typeof TermosRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
@@ -106,6 +127,9 @@ export interface FileRoutesByTo {
   '/notificacoes': typeof NotificacoesRoute
   '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/sobre-riot': typeof SobreRiotRoute
+  '/termos': typeof TermosRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
@@ -121,6 +145,9 @@ export interface FileRoutesById {
   '/notificacoes': typeof NotificacoesRoute
   '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
+  '/privacidade': typeof PrivacidadeRoute
+  '/sobre-riot': typeof SobreRiotRoute
+  '/termos': typeof TermosRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
@@ -136,6 +163,9 @@ export interface FileRouteTypes {
     | '/notificacoes'
     | '/pagamento'
     | '/perfil'
+    | '/privacidade'
+    | '/sobre-riot'
+    | '/termos'
     | '/admin'
     | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -149,6 +179,9 @@ export interface FileRouteTypes {
     | '/notificacoes'
     | '/pagamento'
     | '/perfil'
+    | '/privacidade'
+    | '/sobre-riot'
+    | '/termos'
     | '/admin'
     | '/api/public/payments/webhook'
   id:
@@ -163,6 +196,9 @@ export interface FileRouteTypes {
     | '/notificacoes'
     | '/pagamento'
     | '/perfil'
+    | '/privacidade'
+    | '/sobre-riot'
+    | '/termos'
     | '/_authenticated/admin'
     | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
@@ -178,6 +214,9 @@ export interface RootRouteChildren {
   NotificacoesRoute: typeof NotificacoesRoute
   PagamentoRoute: typeof PagamentoRoute
   PerfilRoute: typeof PerfilRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
+  SobreRiotRoute: typeof SobreRiotRoute
+  TermosRoute: typeof TermosRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -253,6 +292,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PerfilRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre-riot': {
+      id: '/sobre-riot'
+      path: '/sobre-riot'
+      fullPath: '/sobre-riot'
+      preLoaderRoute: typeof SobreRiotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/termos': {
+      id: '/termos'
+      path: '/termos'
+      fullPath: '/termos'
+      preLoaderRoute: typeof TermosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -292,6 +352,9 @@ const rootRouteChildren: RootRouteChildren = {
   NotificacoesRoute: NotificacoesRoute,
   PagamentoRoute: PagamentoRoute,
   PerfilRoute: PerfilRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
+  SobreRiotRoute: SobreRiotRoute,
+  TermosRoute: TermosRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
