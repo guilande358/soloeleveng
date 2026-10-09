@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { HudHeader } from "@/components/hud/hud-header";
 import { HudBottomNav } from "@/components/hud/hud-bottom-nav";
 import { Toaster } from "@/components/ui/sonner";
+import { LegalFooter } from "@/components/legal/legal-page";
 import { HudProvider } from "@/lib/hud-state";
 import { I18nProvider } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
@@ -144,6 +145,7 @@ function RootComponent() {
             <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-5">
               <Outlet />
             </main>
+            <LegalFooter />
             <HudBottomNav />
           </div>
           <Toaster />
