@@ -20,6 +20,7 @@ import { Route as NotificacoesRouteImport } from './routes/notificacoes'
 import { Route as PagamentoRouteImport } from './routes/pagamento'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as RiotDottxtRouteImport } from './routes/riot[.]txt'
 import { Route as SobreRiotRouteImport } from './routes/sobre-riot'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -79,6 +80,11 @@ const PrivacidadeRoute = PrivacidadeRouteImport.update({
   path: '/privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RiotDottxtRoute = RiotDottxtRouteImport.update({
+  id: '/riot.txt',
+  path: '/riot.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRiotRoute = SobreRiotRouteImport.update({
   id: '/sobre-riot',
   path: '/sobre-riot',
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/riot.txt': typeof RiotDottxtRoute
   '/sobre-riot': typeof SobreRiotRoute
   '/termos': typeof TermosRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByTo {
   '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/riot.txt': typeof RiotDottxtRoute
   '/sobre-riot': typeof SobreRiotRoute
   '/termos': typeof TermosRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -146,6 +154,7 @@ export interface FileRoutesById {
   '/pagamento': typeof PagamentoRoute
   '/perfil': typeof PerfilRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/riot.txt': typeof RiotDottxtRoute
   '/sobre-riot': typeof SobreRiotRoute
   '/termos': typeof TermosRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -164,6 +173,7 @@ export interface FileRouteTypes {
     | '/pagamento'
     | '/perfil'
     | '/privacidade'
+    | '/riot.txt'
     | '/sobre-riot'
     | '/termos'
     | '/admin'
@@ -180,6 +190,7 @@ export interface FileRouteTypes {
     | '/pagamento'
     | '/perfil'
     | '/privacidade'
+    | '/riot.txt'
     | '/sobre-riot'
     | '/termos'
     | '/admin'
@@ -197,6 +208,7 @@ export interface FileRouteTypes {
     | '/pagamento'
     | '/perfil'
     | '/privacidade'
+    | '/riot.txt'
     | '/sobre-riot'
     | '/termos'
     | '/_authenticated/admin'
@@ -215,6 +227,7 @@ export interface RootRouteChildren {
   PagamentoRoute: typeof PagamentoRoute
   PerfilRoute: typeof PerfilRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
+  RiotDottxtRoute: typeof RiotDottxtRoute
   SobreRiotRoute: typeof SobreRiotRoute
   TermosRoute: typeof TermosRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
@@ -299,6 +312,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/riot.txt': {
+      id: '/riot.txt'
+      path: '/riot.txt'
+      fullPath: '/riot.txt'
+      preLoaderRoute: typeof RiotDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre-riot': {
       id: '/sobre-riot'
       path: '/sobre-riot'
@@ -353,6 +373,7 @@ const rootRouteChildren: RootRouteChildren = {
   PagamentoRoute: PagamentoRoute,
   PerfilRoute: PerfilRoute,
   PrivacidadeRoute: PrivacidadeRoute,
+  RiotDottxtRoute: RiotDottxtRoute,
   SobreRiotRoute: SobreRiotRoute,
   TermosRoute: TermosRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
